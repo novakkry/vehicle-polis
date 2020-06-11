@@ -1,0 +1,238 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- javascript -->
+    <script src="javascript/scripts.js"></script>
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+
+    <link rel="stylesheet" type="text/css" href="CSS/styles.css">
+
+    <title>VehiclePolis.com</title>
+
+  </head>
+  <body>
+    <!-- closable alert information for a teacher -->
+    <div class="alert alert-warning alert-dismissible fade show" role="alert">
+      
+      <strong>Read me! [Order item page]</strong>
+      <br>• This webpage should be allowed only to logged-in users.
+      <br>• The submit link in the login area, register button and search area is not working since it's not in the scope of assesment 2.
+      <br>• Terms & condition link is not working - not in the scope of assesment 2.
+      <br>• Form is not working - not in the scope of assesment 2.
+      <br>• Submit order not working - not in the scope of assesment 2.
+
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <!-- end of alert -->
+
+    <div class="container p-3 my-3 border">
+
+      <div class="row">
+        <div class="col-md-4 col-lg-3 my-auto">
+
+           <a href="home.html"><img src="images/logo.png" class = "img-responsive" width = "100%"></a>
+
+        </div>
+
+        <div class="col-md-6 col-lg-7 my-auto">
+            <!-- <div class="centerBlock"> -->
+              <input class="form-control mb-2 w-100" type="search" placeholder="Search your dream car" aria-label="Search">
+            <!-- </div> -->
+        </div>
+
+        <div class="col-md-2 col-lg-2">
+
+           <button type="button" class="btn btn-outline-dark btn-block btn-sm mb-1" data-toggle="collapse" data-target="#collapseExample_login" aria-expanded="false" aria-controls="collapseExample">Login</button>
+
+            <div class="collapse" id="collapseExample_login">
+              <div class="card card-body mb-2">
+                <input type="email" class="form-control mb-2" id="exampleInputEmail1" placeholder="Email">
+                <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+                <p class="text-center"> <a href="#">Submit</a></p>
+              </div>
+            </div>
+          
+          <button type="button" class="btn btn-outline-dark btn-block btn-sm">Register</button>
+
+
+
+        </div>
+      </div>
+
+      <hr>
+      <!-- types of cars -->
+
+      <!-- slkdfjasl;kfjsdlkjfslsjfdlal;f -->
+      <div class="row">
+        <div class="col">
+          <h3 class="mb-2">Items to order:</h3>
+        </div>
+      </div>
+
+      <!-- details about item -->
+      <div class="row border-top border-bottom mx-2">
+        <div class="card border-0">
+          <div class="card-body">
+            <div class="row">
+              <div class="col-xl-2 col-lg-2 col-xs-2 mp-2">
+              <img class="shadow img-fluid" src="images/cars/car_0/s-l800.jpg" alt="Card image cap">
+              </div>
+              <div class="col-xl-5 col-lg-5 col-xs-5">
+                <h6 class="card-title">2017 Skoda Superb NP MY17 206TSI Sedan DSG Grey 6 Speed Sports Automatic Dual Clutch Liftback</h6>
+                Seller: Abdul_xx<br>Item location: 4101, South Brisbane, QLD
+              </div>
+
+              <div class="col-xl-2 col-lg-2 col-xs-2 my-auto" align="center">
+                <select class="form-control form-control-sm">
+                  <option>Quantity</option>
+                  <option>1</option>
+                </select>
+                <!-- <span class="align-bottom">Quantity</span> -->
+              </div>
+
+              <div class="col-xl-3 col-lg-3 col-xs-3 my-auto" align="center">
+                <h5>Price: $47 889</h5>
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- order details -->
+
+      <div class="row mt-3 mb-1 mx-1">
+        <div class="col">
+          <h6 class="mb-2">Order details:</h6>
+        </div>
+      </div>
+
+      <div class="row mx-3">
+        <div class="input-group mb-1">
+          <div class="input-group-prepend">
+            <span class="input-group-text" id="basic-addon1">First name <font color="red">*</font></span>
+          </div>
+          <input type="text" class="form-control" placeholder="" aria-label="Username" aria-describedby="basic-addon1">
+        </div>
+
+        <div class="input-group mb-1">
+          <div class="input-group-prepend">
+            <span class="input-group-text" id="basic-addon1">Last name <font color="red">*</font></span>
+          </div>
+          <input type="text" class="form-control" placeholder="" aria-label="Username" aria-describedby="basic-addon1">
+        </div>
+
+        <div class="input-group mb-3">
+          <div class="input-group-prepend">
+            <span class="input-group-text" id="basic-addon1">Company name</span>
+          </div>
+          <input type="text" class="form-control" placeholder="" aria-label="Username" aria-describedby="basic-addon1">
+        </div>
+
+        <div class="input-group mb-1">
+          <div class="input-group-prepend">
+            <span class="input-group-text" id="basic-addon1">Street address<font color="red">*</font></span>
+          </div>
+          <input type="text" class="form-control" placeholder="Line 1" aria-label="Username" aria-describedby="basic-addon1">
+        </div>       
+
+        <div class="input-group mb-1">
+          <div class="input-group-prepend">
+            <span class="input-group-text" id="basic-addon1">Street address</span>
+          </div>
+          <input type="text" class="form-control" placeholder="Line 2" aria-label="Username" aria-describedby="basic-addon1">
+        </div>  
+
+        <div class="input-group mb-1">
+          <div class="input-group-prepend">
+            <span class="input-group-text" id="basic-addon1">Suburb<font color="red">*</font></span>
+          </div>
+          <input type="text" class="form-control" placeholder="" aria-label="Username" aria-describedby="basic-addon1">
+        </div>    
+
+        <div class="input-group mb-1">
+          <div class="input-group-prepend">
+            <span class="input-group-text" id="basic-addon1">City<font color="red">*</font></span>
+          </div>
+          <input type="text" class="form-control" placeholder="" aria-label="Username" aria-describedby="basic-addon1">
+        </div>   
+
+        <div class="input-group mb-1">
+          <div class="input-group-prepend">
+            <span class="input-group-text" id="basic-addon1">State<font color="red">*</font></span>
+          </div>
+          <input type="text" class="form-control" placeholder="" aria-label="Username" aria-describedby="basic-addon1">
+        </div>   
+
+        <div class="input-group mb-3">
+          <div class="input-group-prepend">
+            <label class="input-group-text" for="inputGroupSelect01">Country<font color="red">*</font></label>
+          </div>
+          <select class="custom-select" id="inputGroupSelect01">
+            <option selected>Australia</option>
+          </select>
+        </div>
+
+        <h6 class="mb-2">Contact details</h6>
+
+        <div class="input-group mb-1">
+          <div class="input-group-prepend">
+            <span class="input-group-text" id="basic-addon1">Phone number<font color="red">*</font></span>
+          </div>
+          <input type="text" class="form-control" placeholder="" aria-label="Username" aria-describedby="basic-addon1">
+        </div>  
+
+        <div class="input-group mb-1">
+          <div class="input-group-prepend">
+            <span class="input-group-text" id="basic-addon1">Email<font color="red">*</font></span>
+          </div>
+          <input type="text" class="form-control" placeholder="" aria-label="Username" aria-describedby="basic-addon1">
+        </div>  
+
+        <div class="d-flex flex-column bd-highlight mb-3">
+          <div class="p-2 bd-highlight">All items on this server have to be collected and paid in person. After submitting this order, you (as a buyer) are legally binded to pick up and pay the item within 10 days from the moment of purchase.</div>
+          <div class="p-2 bd-highlight">
+            <div class="form-check">
+              <input type="checkbox" class="form-check-input" id="exampleCheck1">
+              <label class="form-check-label" for="exampleCheck1"><font color="red">*</font>Agree with <a href="#">terms & conditions</a></label>
+            </div>
+          </div>
+        <div class="bd-highlight">
+          <sub><font color="red">*</font>Mandatory fields</sub>
+        </div>
+
+        </div>
+
+        <button type="button" class="btn btn-outline-dark btn-block btn-sm">Submit order</button>
+
+      </div>
+
+
+
+      </div>
+    
+        <!-- footer -->
+      <footer class="footer">
+        
+        <hr class="mb-3 mt-4">
+
+        <p class="text-center">© 2020 VehiclePolis.com</p>
+
+      </footer>
+
+    </div>
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+  </body>
+</html>
