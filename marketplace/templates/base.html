@@ -38,16 +38,31 @@
 	                    </div>
                     </div>
                 </div>
-                <button type="button" class="btn btn-outline-dark btn-block btn-sm">Register</button>
+                <a href="{{url_for('register')}}" class="btn btn-outline-dark btn-block btn-sm">Register</a>
             </div>
         </div>
         <hr>
         
-        <!-- start content -->
-        <div class='content'>
 
+        <div class='content'>
+            <!-- flash messages here -->
+            {% with messages = get_flashed_messages(with_categories = true) %}
+                {% if messages %}
+                    {% for category, message in messages %}
+                        <div class="alert alert-{{ category }}">
+                            {{message}}
+                        </div>
+                    {% endfor %}
+                {% endif %}
+            {% endwith %}
+            <!-- end flash messages -->
+            
+            <!-- start content -->
+            {% block content %}
+            {% endblock %}
+            <!-- end content -->
         </div>
-        <!-- end content -->
+        
 
     </div>
 
