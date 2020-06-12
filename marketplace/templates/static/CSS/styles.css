@@ -1,0 +1,38 @@
+.icon-play{
+  background: url(images/_0000_Layer-1.png);
+  background-size: cover;
+  display: inline-block;
+  height: 39px;
+  width: 40px;
+}
+
+.collapse-content .fa.fa-heart:hover {
+  color: #f44336 !important;
+}
+.collapse-content .fa.fa-share-alt:hover {
+  color: #0d47a1 !important;
+}
+
+body {margin:2rem;}
+
+@media (min-width: 544px) {  
+
+}
+@media (min-width: 768px) {  
+
+}
+@media (min-width: 992px) { 
+
+}
+@media (min-width: 1200px) {  
+    
+}
+
+@media (max-width: 950px) { 
+
+}
+
+.food1 img {
+    width:100%;
+    height: 230px;
+}
