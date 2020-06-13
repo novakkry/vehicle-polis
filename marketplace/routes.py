@@ -33,7 +33,11 @@ def login():
     return render_template('login.html', form=form)
 
 @app.route("/add_edit_item")
+@login_required
 def add_edit_item():
+    if current_user.role == 'buyer':
+        flash('Only sellers can list cars.', 'info')
+        return redirect(url_for('home'))
     return render_template('add_edit_item.html')
 
 @app.route("/register", methods=['GET','POST'])
@@ -58,7 +62,7 @@ def logout():
 @app.route("/account")
 @login_required
 def account():
-    if current_user.is_authenticated:
+    if current_user.is_authenticated: #this verification doesn't have to be here - I did it before I knew about @login_required
         return render_template('account.html')
     else: 
         return redirect(url_for('home'))

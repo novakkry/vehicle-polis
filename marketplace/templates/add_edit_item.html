@@ -1,230 +1,141 @@
-<!doctype html>
-<html lang="en">
-  <head>
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+{% extends "base.html" %}
+{% block content %}
 
-    <!-- javascript -->
-    <script src="javascript/scripts.js"></script>
+<div class="row">
+  <div class="col-xl-12">
 
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+  <h3 class="mb-2"> List a new vehicle</h3>
 
-    <link rel="stylesheet" type="text/css" href="CSS/styles.css">
+  <div class="form-check form-check-inline">
+    <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1">
+    <label class="form-check-label" for="inlineRadio1">New</label>
+  </div>
+  <div class="form-check form-check-inline">
+    <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1">
+    <label class="form-check-label" for="inlineRadio1">Used</label>
+  </div>
+  <div class="form-check form-check-inline">
+    <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1">
+    <label class="form-check-label" for="inlineRadio1">Salvaged</label>
+  </div>
 
-    <title>VehiclePolis.com</title>
-
-  </head>
-  <body>
-    <!-- closable alert information for a teacher -->
-    <div class="alert alert-warning alert-dismissible fade show" role="alert">
-      
-      <strong>Read me! [Item Creation/Update Page]</strong>
-      <br>• This webpage should be allowed only to logged-in users with a role of seller.
-      <br>• The submit link in the login area, register button and search area is not working since it's not in the scope of assesment 2.
-      <br>• Form is not working - not in the scope of assesment 2.
-      <br>• Post vehicle button not working - database is needed - not in the scope of assesment 2.
-
-      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-        <span aria-hidden="true">&times;</span>
-      </button>
+    <div class="input-group my-2">
+      <div class="input-group-prepend">
+        <label class="input-group-text" for="inputGroupSelect01">Make</label>
+      </div>
+      <select class="custom-select" id="inputGroupSelect01">
+        <option value="1">Choose a make</option>
+        <option value="1">Alfa Romeo</option>
+        <option value="2">Audi</option>
+        <option value="3">BMW</option>
+        <option value="3">Chevrolete</option>
+        <option value="3">Citroen</option>
+        <option value="3">Fiat</option>
+        <option value="3">Ford</option>
+        <option value="3">Honda</option>
+        <option value="3">Hyundai</option>
+        <option value="3">Kia</option>
+        <option value="3">Mazda</option>
+        <option value="3">Mercedes</option>
+        <option value="3">Mitsubishi</option>
+        <option value="3">Nissan</option>
+        <option value="3">Opel</option>
+        <option value="3">Peugeot</option>
+        <option value="3">Renault</option>
+        <option value="3">Seat</option>
+        <option value="3">Skoda</option>
+        <option value="3">Subaru</option>
+        <option value="3">Suzuki</option>
+        <option value="3">Toyota</option>
+        <option value="3">Volkswagen</option>
+        <option value="3">Volvo</option>
+        <option value="3">...</option>
+        <option value="3">and so on</option>
+      </select>
     </div>
-    <!-- end of alert -->
 
-    <div class="container p-3 my-3 border">
-
-      <div class="row">
-        <div class="col-md-4 col-lg-3 my-auto">
-
-           <a href="home.html"><img src="images/logo.png" class = "img-responsive" width = "100%"></a>
-
-        </div>
-
-        <div class="col-md-6 col-lg-7 my-auto">
-            <!-- <div class="centerBlock"> -->
-              <input class="form-control mb-2 w-100" type="search" placeholder="Search your dream car" aria-label="Search">
-            <!-- </div> -->
-        </div>
-
-        <div class="col-md-2 col-lg-2">
-
-           <button type="button" class="btn btn-outline-dark btn-block btn-sm mb-1" data-toggle="collapse" data-target="#collapseExample_login" aria-expanded="false" aria-controls="collapseExample">Login</button>
-
-            <div class="collapse" id="collapseExample_login">
-              <div class="card card-body mb-2">
-                <input type="email" class="form-control mb-2" id="exampleInputEmail1" placeholder="Email">
-                <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
-                <p class="text-center"> <a href="#">Submit</a></p>
-              </div>
-            </div>
-          
-          <button type="button" class="btn btn-outline-dark btn-block btn-sm">Register</button>
-
-
-
-        </div>
-      </div>
-
-      <hr>
-      <!-- types of cars -->
-
-      <!-- slkdfjasl;kfjsdlkjfslsjfdlal;f -->
-      <div class="row">
-        <div class="col-xl-12">
-
-        <h3 class="mb-2"> List a new vehicle</h3>
-
-        <div class="form-check form-check-inline">
-          <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1">
-          <label class="form-check-label" for="inlineRadio1">New</label>
-        </div>
-        <div class="form-check form-check-inline">
-          <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1">
-          <label class="form-check-label" for="inlineRadio1">Used</label>
-        </div>
-        <div class="form-check form-check-inline">
-          <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1">
-          <label class="form-check-label" for="inlineRadio1">Salvaged</label>
-        </div>
-
-          <div class="input-group my-2">
-            <div class="input-group-prepend">
-              <label class="input-group-text" for="inputGroupSelect01">Make</label>
-            </div>
-            <select class="custom-select" id="inputGroupSelect01">
-              <option value="1">Choose a make</option>
-              <option value="1">Alfa Romeo</option>
-              <option value="2">Audi</option>
-              <option value="3">BMW</option>
-              <option value="3">Chevrolete</option>
-              <option value="3">Citroen</option>
-              <option value="3">Fiat</option>
-              <option value="3">Ford</option>
-              <option value="3">Honda</option>
-              <option value="3">Hyundai</option>
-              <option value="3">Kia</option>
-              <option value="3">Mazda</option>
-              <option value="3">Mercedes</option>
-              <option value="3">Mitsubishi</option>
-              <option value="3">Nissan</option>
-              <option value="3">Opel</option>
-              <option value="3">Peugeot</option>
-              <option value="3">Renault</option>
-              <option value="3">Seat</option>
-              <option value="3">Skoda</option>
-              <option value="3">Subaru</option>
-              <option value="3">Suzuki</option>
-              <option value="3">Toyota</option>
-              <option value="3">Volkswagen</option>
-              <option value="3">Volvo</option>
-              <option value="3">...</option>
-              <option value="3">and so on</option>
-            </select>
-          </div>
-
-          <select class="form-control mb-2">
-            <option>Choose a model</option>
-          </select>
-          
-
-          <div class="input-group mb-2">
-            <div class="input-group-prepend">
-              <span class="input-group-text mr-n2" id="basic-addon1">Price</span>
-            </div>
-            <input type="text" class="form-control" placeholder="$$$" aria-label="Username" aria-describedby="basic-addon1">
-          </div>
-
-          <div class="input-group mb-2">
-            <div class="input-group-prepend">
-              <span class="input-group-text" id="basic-addon1">Year of manufacture</span>
-            </div>
-            <input type="text" class="form-control" placeholder="" aria-label="Username" aria-describedby="basic-addon1">
-          </div>
-
-          <div class="input-group mb-2">
-            <div class="input-group-prepend">
-              <span class="input-group-text" id="basic-addon1">ODO (km)</span>
-            </div>
-            <input type="text" class="form-control" placeholder="" aria-label="Username" aria-describedby="basic-addon1">
-          </div>
-
-          <div class="input-group mb-2">
-            <div class="input-group-prepend">
-              <label class="input-group-text" for="inputGroupSelect01">Category</label>
-            </div>
-            <select class="custom-select" id="inputGroupSelect01">
-              <option>Sedan</option>
-              <option>Hatchback</option>
-              <option>MUV/SUV</option>
-              <option>Coupe</option>
-              <option>Convertible</option>
-              <option>Wagon</option>
-              <option>Van</option>
-              <option>Sport</option>
-            </select>
-          </div>
-
-          <div class="input-group mb-2">
-            <div class="input-group-prepend">
-              <label class="input-group-text" for="inputGroupSelect01">Fuel</label>
-            </div>
-            <select class="custom-select" id="inputGroupSelect01">
-              <option selected>Gas</option>
-              <option value="1">Diesel</option>
-              <option value="1">Electric</option>
-            </select>
-          </div>
-
-          <div class="input-group mb-2">
-            <div class="input-group-prepend">
-              <label class="input-group-text" for="inputGroupSelect01">Transmission</label>
-            </div>
-            <select class="custom-select" id="inputGroupSelect01">
-              <option value="1">Automatic</option>
-              <option value="1">Manual</option>
-            </select>
-          </div>
-
-          <div class="input-group mb-2">
-            <div class="input-group-prepend">
-              <span class="input-group-text" id="basic-addon1">Quantity</span>
-            </div>
-            <input type="text" class="form-control" placeholder="Number of items available for sell" aria-label="Username" aria-describedby="basic-addon1">
-          </div>
-
-          <form>
-            <div class="form-group">
-              <label for="exampleFormControlFile1">Upload a picture (in beta only one)</label>
-              <input type="file" class="form-control-file" id="exampleFormControlFile1">
-            </div>
-          </form>
-
-          <h5>Description</h5>
-              <div class="form-group">
-              <textarea class="form-control" rows="5" id="comment"></textarea>
-           </div>
-
-           <button type="button" class="btn btn-outline-dark btn-block btn-sm">Post vehicle</button>
-
-        </div>
-
-      </div>
+    <select class="form-control mb-2">
+      <option>Choose a model</option>
+    </select>
     
-        <!-- footer -->
-      <footer class="footer">
-        
-        <hr class="mb-3 mt-4">
 
-        <p class="text-center">© 2020 VehiclePolis.com</p>
-
-      </footer>
-
+    <div class="input-group mb-2">
+      <div class="input-group-prepend">
+        <span class="input-group-text mr-n2" id="basic-addon1">Price</span>
+      </div>
+      <input type="text" class="form-control" placeholder="$$$" aria-label="Username" aria-describedby="basic-addon1">
     </div>
-    <!-- Optional JavaScript -->
-    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
-  </body>
-</html>
+
+    <div class="input-group mb-2">
+      <div class="input-group-prepend">
+        <span class="input-group-text" id="basic-addon1">Year of manufacture</span>
+      </div>
+      <input type="text" class="form-control" placeholder="" aria-label="Username" aria-describedby="basic-addon1">
+    </div>
+
+    <div class="input-group mb-2">
+      <div class="input-group-prepend">
+        <span class="input-group-text" id="basic-addon1">ODO (km)</span>
+      </div>
+      <input type="text" class="form-control" placeholder="" aria-label="Username" aria-describedby="basic-addon1">
+    </div>
+
+    <div class="input-group mb-2">
+      <div class="input-group-prepend">
+        <label class="input-group-text" for="inputGroupSelect01">Category</label>
+      </div>
+      <select class="custom-select" id="inputGroupSelect01">
+        <option>Sedan</option>
+        <option>Hatchback</option>
+        <option>MUV/SUV</option>
+        <option>Coupe</option>
+        <option>Convertible</option>
+        <option>Wagon</option>
+        <option>Van</option>
+        <option>Sport</option>
+      </select>
+    </div>
+
+    <div class="input-group mb-2">
+      <div class="input-group-prepend">
+        <label class="input-group-text" for="inputGroupSelect01">Fuel</label>
+      </div>
+      <select class="custom-select" id="inputGroupSelect01">
+        <option selected>Gas</option>
+        <option value="1">Diesel</option>
+        <option value="1">Electric</option>
+      </select>
+    </div>
+
+    <div class="input-group mb-2">
+      <div class="input-group-prepend">
+        <label class="input-group-text" for="inputGroupSelect01">Transmission</label>
+      </div>
+      <select class="custom-select" id="inputGroupSelect01">
+        <option value="1">Automatic</option>
+        <option value="1">Manual</option>
+      </select>
+    </div>
+
+    <div class="input-group mb-2">
+      <div class="input-group-prepend">
+        <span class="input-group-text" id="basic-addon1">Quantity</span>
+      </div>
+      <input type="text" class="form-control" placeholder="Number of items available for sell" aria-label="Username" aria-describedby="basic-addon1">
+    </div>
+
+    <form>
+      <div class="form-group">
+        <label for="exampleFormControlFile1">Upload a picture (in beta only one)</label>
+        <input type="file" class="form-control-file" id="exampleFormControlFile1">
+      </div>
+    </form>
+
+    <h5>Description</h5>
+        <div class="form-group">
+        <textarea class="form-control" rows="5" id="comment"></textarea>
+      </div>
+
+      <button type="button" class="btn btn-outline-dark btn-block btn-sm">Post vehicle</button>
+
+      {% endblock content %}

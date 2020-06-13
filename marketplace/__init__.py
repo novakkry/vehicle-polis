@@ -10,6 +10,7 @@ db = SQLAlchemy(app)
 bcrypt = Bcrypt(app)
 login_manager = LoginManager(app)
 login_manager.login_view = 'login'
+login_manager.login_message = 'This page is accessible only to logged in users. Please log in.'
 login_manager.login_message_category = 'info'
 
 from marketplace import routes
