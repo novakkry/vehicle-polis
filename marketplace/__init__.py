@@ -10,7 +10,7 @@ app.config['SECRET_KEY'] = 'thisissecret'
 # app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///database.db'
 app.config.from_mapping(
     #Flask SQLalchemy settings
-    SQLALCHEMY_DATABASE_URI = os.environ[DATABASE_URL]
+    SQLALCHEMY_DATABASE_URI = os.environ['DATABASE_URL']
 
 )
 db = SQLAlchemy(app)
