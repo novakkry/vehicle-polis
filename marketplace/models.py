@@ -1,6 +1,8 @@
 from datetime import datetime
 from marketplace import db
 
+#db.drop_all() ... erases everything in the database
+#db.create_all() ... creates the database with tables from models.py
 
 class User(db.Model):
     id = db.Column(db.Integer, primary_key=True)
