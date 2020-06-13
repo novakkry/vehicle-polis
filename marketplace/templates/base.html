@@ -20,56 +20,17 @@
     <div class="container p-3 my-3 border">
         <div class="row">
             <div class="col-md-4 col-lg-3 my-auto">
-                <a href="home.html"><img src="static/images/logo.png" class = "img-responsive" width = "100%"></a>
+                <a href="{{ url_for('home') }}"><img src="static/images/logo.png" class = "img-responsive" width = "100%"></a>
             </div>
             <div class="col-md-6 col-lg-7 my-auto">
                 <input class="form-control mb-2 w-100" type="search" placeholder="Search your dream car" aria-label="Search">
             </div>
             <div class="col-md-2 col-lg-2">
-                <button type="button" class="btn btn-outline-dark btn-block btn-sm mb-1" data-toggle="collapse" data-target="#collapseExample_login" aria-expanded="false" aria-controls="collapseExample">Login</button>
-                <div class="collapse" id="collapseExample_login">
-                    <div class="card card-body mb-2">
-                        <!-- Login form -->
-                        <form method="POST" action="">
-                            {{form.hidden_tag()}}
-                            <fieldset class="form-group">
-                                <div class="form-group">
-                                    {% if form.email.errors %}
-                                        {{ form.email(class="form-control is-invalid") }}
-                                        <div class="invalid-feedback">
-                                            {% for error in form.email.errors %}
-                                                <span>{{ error }}</span>
-                                            {% endfor %}
-                                        </div>
-                                    {% else %}
-                                        {{ form.email(class="form-control", placeholder="Email") }}
-                                    {% endif %}
-                                </div>
-                                <div class="form-group">
-                                    {% if form.password.errors %}
-                                        {{ form.password(class="form-control is-invalid") }}
-                                        <div class="invalid-feedback">
-                                            {% for error in form.password.errors %}
-                                                <span>{{ error }}</span>
-                                            {% endfor %}
-                                        </div>
-                                    {% else %}
-                                        {{ form.password(class="form-control", placeholder="Password") }}
-                                    {% endif %}
-                                </div>
-                            </fieldset>
-                            <div class="form-group">
-                                {{ form.submit(class="btn btn-outline-dark btn-block btn-sm") }}
-                            </div>
-                        </form>
-                        <!-- end of login -->
-                    </div>
-                </div>
+                <a href="{{url_for('login')}}" class="btn btn-outline-dark btn-block btn-sm">Login</a>
                 <a href="{{url_for('register')}}" class="btn btn-outline-dark btn-block btn-sm">Register</a>
             </div>
         </div>
         <hr>
-        
 
         <div class='content'>
             <!-- flash messages here -->
