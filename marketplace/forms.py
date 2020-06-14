@@ -1,5 +1,6 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, PasswordField, SubmitField, BooleanField, RadioField
+from flask_wtf.file import FileField, FileAllowed
+from wtforms import StringField, PasswordField, SubmitField, BooleanField, RadioField, TextAreaField, IntegerField, SelectField
 from wtforms.validators import DataRequired, Length, Email, EqualTo, ValidationError
 from marketplace.models import User
 
@@ -8,7 +9,7 @@ class RegistrationForm(FlaskForm):
     email = StringField('Email', validators=[DataRequired(), Email()])
     password = PasswordField('Password', validators=[DataRequired()])
     confirm_password = PasswordField('Confirm Password', validators=[DataRequired(), EqualTo('password')])
-    role = RadioField('Role', choices=[('buyer','Buyer'),('seller','Buyer and seller')], default='buyer')
+    role = RadioField('I want to', choices=[('buyer','buy only'),('seller','buy and sell')], default='buyer')
     submit = SubmitField('Sign Up')
 
     def validate_username(self, username):
@@ -26,3 +27,19 @@ class LoginForm(FlaskForm):
     password = PasswordField('Password', validators=[DataRequired()])
     submit = SubmitField('Login')
     remember = BooleanField('Remember Me')
+
+class PostForm(FlaskForm):
+    condition = RadioField('Condition', choices=[('New','New'),('Used','Used'),('Salvaged','Salvaged')], default='New')
+    title = StringField('Title', validators=[DataRequired(), Length(min=3, max=20)])
+    make = SelectField('Make',validators=[DataRequired()], choices=[('Alfa Romeo', 'Alfa Romeo'), ('Audi', 'Audi'), ('BMW', 'BMW'), ('Chevrolete', 'Chevrolet'), ('Citroen', 'Citroen'), ('Fiat', 'Fiat'), ('Ford', 'Ford'), ('Honda', 'Honda'), ('Hyundai', 'Hyundai'), ('Kia', 'Kia'), ('Mazda', 'Mazda'), ('Mercedes', 'Mercedes'), ('Mitsubishi', 'Mitsubishi'), ('Nissan', 'Nissan'), ('Opel', 'Opel'), ('Peugeot', 'Peugeot'), ('Renault', 'Renault'), ('Seat', 'Seat'), ('Skoda', 'Skoda'), ('Subaru', 'Subaru'), ('Suzuki', 'Suzuki'), ('Toyota', 'Toyota'), ('Volkswagen', 'Volkswagen'), ('Volvo', 'Volvo')])
+    model = StringField('Model', validators=[DataRequired(), Length(min=1, max=20)])
+    price = IntegerField('Price', validators=[DataRequired('This field has to be a number and is required.')])
+    year = IntegerField('Year', validators=[DataRequired('This field has to be a number and is required.')])
+    ODO = IntegerField('ODO (km)', validators=[DataRequired('This field has to be a number with no spaces and is required.')])
+    category = SelectField('Category',validators=[DataRequired()], choices=[('hatchbag', 'Hatchbag'), ('sedan', 'Sedan'), ('muv/suv', 'MUV/SUV'), ('coupe', 'Coupe'), ('convertible', 'Convertible'), ('wagon', 'Wagon'), ('van', 'Van'), ('sport', 'Sport')])
+    fuel = SelectField('Fuel type',validators=[DataRequired()], choices=[('Gas', 'Gas'), ('Diesel', 'Diesel'), ('Electric', 'Electric')])
+    transmission = SelectField('Transmission type',validators=[DataRequired()], choices=[('Automatic', 'Automatic'), ('Manual', 'Manual')])
+    quantity = IntegerField('Quantity', validators=[DataRequired('This field has to be a number and is required.')])
+    description = TextAreaField('Description')
+    picture = FileField('Upload a picture (.png, .jpg)', validators=[FileAllowed(['png', 'jpg'])])
+    submit = SubmitField('Post vehicle')

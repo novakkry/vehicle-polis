@@ -3,16 +3,10 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_bcrypt import Bcrypt
 from flask_login import LoginManager
 
-import os
-
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'thisissecret'
-# app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///database.db'
-app.config.from_mapping(
-    #Flask SQLalchemy settings
-    SQLALCHEMY_DATABASE_URI = os.environ['DATABASE_URL']
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///database.db'
 
-)
 db = SQLAlchemy(app)
 bcrypt = Bcrypt(app)
 login_manager = LoginManager(app)

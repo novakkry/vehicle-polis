@@ -23,8 +23,10 @@ class User(db.Model, UserMixin):
 #image of the car is missing - let's do it later on once it's working
 class Post(db.Model):
     id = db.Column(db.Integer, primary_key=True)
+    condition = db.Column(db.String(100), nullable=False)
     title = db.Column(db.String(100), nullable=False)
     make = db.Column(db.String(100), nullable=False)
+    model = db.Column(db.String(100), nullable=False)
     price = db.Column(db.Integer(), nullable=False)
     year = db.Column(db.Integer(), nullable=False)
     ODO = db.Column(db.Integer(), nullable=False)
@@ -34,6 +36,7 @@ class Post(db.Model):
     quantity = db.Column(db.Integer(), nullable=False)
     date_posted = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
     description = db.Column(db.Text, nullable=True)
+    image_file = db.Column(db.String(20), nullable=False, default='default.png')
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
 
     def __repr__(self):

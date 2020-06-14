@@ -61,8 +61,11 @@
             {% endif %}
         </div>
         <div class="form-check">
-            {{ form.role.label }}
-            {{ form.role }}
+            {{ form.role.label}}<br>
+            {% for radio in form.role %}
+                {{ radio }}
+                {{ radio.label(class="mr-2")}}
+            {% endfor %}
         </div>
     </fieldset>
     <div class="form-group">

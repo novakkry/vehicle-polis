@@ -1,6 +1,11 @@
 {% extends "base.html" %}
 {% block content %}
-<h1>Account of {{ current_user.username }} </h1>
-<h2>Here are gonna be information about the logged in user.</h2>
+
+<h3 class="account-heading">Your account details</h3>
+<br>
+<p class="text"> Your username: <b>{{ current_user.username }}</p></b>
+<p class="text"> Your email: <b>{{ current_user.email }}</p></b>
+<p class="text"> Your role: <b>{{ current_user.role }}</p></b>
+
 
 {% endblock content %}

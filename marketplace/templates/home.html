@@ -17,7 +17,7 @@
     </div>
   </div>
   <div class="col text-right">
-    <a href="{{ url_for('add_edit_item') }}" class="m-4"> +List a new vehicle</a>
+    <a href="{{ url_for('add_item') }}" class="m-4"> +List a new vehicle</a>
   </div>
 </div>
 
@@ -181,7 +181,7 @@
 <!-- View button -->
 <div class="row">
   <div class="col-lg-4 offset-lg-4">
-    <a href="list_of_items.html"><button type="button" class="btn btn-outline-dark btn-block btn-lg mt-2">Show vehicles</button></a>
+    <a href="{{url_for('item_list')}}"><button type="button" class="btn btn-outline-dark btn-block btn-lg mt-2">Show vehicles</button></a>
   </div>
 </div>
 
@@ -193,12 +193,15 @@
 <div id="multi-item-example" class="carousel slide carousel-multi-item" data-ride="carousel">
   <!--Slides-->
   <div class="carousel-inner" role="listbox">
+
     <!--First slide-->
     <div class="carousel-item active">
       <div class="row">
+
+        <!-- individual item -->
         <div class="col-md-3 col-xs-5">
           <div class="card mb-2 h-100">
-            <img class="card-img-top" src="static/images/cars/car_0/s-l800.jpg" alt="Card image cap">
+            <img class="card-img-top" src="static/images/default.png" alt="Card image cap">
             <div class="card-body d-flex flex-column">
               <h5 class="card-title">2017 Skoda Superb</h5>
               <p class="card-text">Price: <strong> $47 889</strong><br>Year: <strong>2017</strong><br>ODO: <strong>7500 km</strong><br>Transmission: <strong>Automatic</strong><p class="text-secondary mb-n2"><sub>1 available</sub></p></p>
@@ -206,48 +209,16 @@
             </div>
           </div>
         </div>
-
-        <div class="col-md-3 col-xs-5">
-          <div class="card mb-2 h-100">
-            <img class="card-img-top" src="static/images/cars/car_1/s-l800.jpg" alt="Card image cap">
-            <div class="card-body d-flex flex-column">
-              <h5 class="card-title">2014 Volkswagen Transporter</h5>
-              <p class="card-text">Price: <strong> $18 889</strong><br>Year: <strong>2013</strong><br>ODO: <strong>156 000 km</strong><br>Transmission: <strong>Manual</strong><p class="text-secondary mb-n2"><sub>1 available</sub></p></p>
-              <button onclick="location.href='item_details.html';" type="button" class="mt-auto btn btn-outline-dark btn-block btn-sm">See more</button>
-            </div>
-          </div>
-        </div>
-
-        <div class="col-md-3 col-xs-5">
-          <div class="card mb-2 h-100">
-            <img class="card-img-top" src="static/images/cars/car_2/s-l800.jpg" alt="Card image cap">
-            <div class="card-body d-flex flex-column">
-              <h5 class="card-title">2011 Holden Commodore</h5>
-              <p class="card-text">Price: <strong> $6990</strong><br>Year: <strong>2011</strong><br>ODO: <strong>212 000 km</strong><br>Transmission: <strong>Automatic</strong><p class="text-secondary mb-n2"><sub>1 available</sub></p></p>
-              <button onclick="location.href='item_details.html';" type="button" class="mt-auto btn btn-outline-dark btn-block btn-sm">See more</button>
-            </div>
-          </div>
-        </div>
-
-        <div class="col-md-3 col-xs-5">
-          <div class="card mb-2 h-100">
-            <img class="card-img-top" src="static/images/cars/car_4/s-l800.jpg" alt="Card image cap">
-            <div class="card-body d-flex flex-column">
-              <h5 class="card-title">2011 BMW X1</h5>
-              <p class="card-text">Price: <strong> $19 200</strong><br>Year: <strong>2011</strong><br>ODO: <strong>104 993 km</strong><br>Transmission: <strong>Automatic</strong><p class="text-secondary mb-n2"><sub>1 available</sub></p></p>
-              <button onclick="location.href='item_details.html';" type="button" class="mt-auto btn btn-outline-dark btn-block btn-sm">See more</button>
-            </div>
-          </div>
-        </div>
+        <!-- end of individual item -->
 
       </div>
     </div>
 
     <!--Second slide-->
     <div class="carousel-item">
-
       <div class="row">
 
+        <!-- individual item -->
         <div class="col-md-3 col-xs-5">
           <div class="card mb-2 h-100">
             <img class="card-img-top" src="static/images/cars/car_3/s-l800.jpg" alt="Card image cap">
@@ -258,48 +229,15 @@
             </div>
           </div>
         </div>
-
-        <div class="col-md-3 col-xs-5">
-          <div class="card mb-2 h-100">
-            <img class="card-img-top" src="static/images/cars/car_5/s-l800.jpg" alt="Card image cap">
-            <div class="card-body d-flex flex-column">
-              <h5 class="card-title">2017 Audi A4</h5>
-              <p class="card-text">Price: <strong> $47 999</strong><br>Year: <strong>2017</strong><br>ODO: <strong>84 208 km</strong><br>Transmission: <strong>Automatic</strong><p class="text-secondary mb-n2"><sub>1 available</sub></p></p>
-              <button onclick="location.href='item_details.html';" type="button" class="mt-auto btn btn-outline-dark btn-block btn-sm">See more</button>
-            </div>
-          </div>
-        </div>
-
-        <div class="col-md-3 col-xs-5">
-          <div class="card mb-2 h-100">
-            <img class="card-img-top" src="static/images/cars/car_6/s-l800.jpg" alt="Card image cap">
-            <div class="card-body d-flex flex-column">
-              <h5 class="card-title">2014 Jeep Wrangler</h5>
-              <p class="card-text">Price: <strong> $25 999</strong><br>Year: <strong>2014</strong><br>ODO: <strong>33 231 km</strong><br>Transmission: <strong>Automatic</strong><p class="text-secondary mb-n2"><sub>1 available</sub></p></p>
-              <button onclick="location.href='item_details.html';" type="button" class="mt-auto btn btn-outline-dark btn-block btn-sm">See more</button>
-            </div>
-          </div>
-        </div>
-
-        <div class="col-md-3 col-xs-5">
-          <div class="card mb-2 h-100">
-            <img class="card-img-top" src="static/images/cars/car_7/s-l800.jpg" alt="Card image cap">
-            <div class="card-body d-flex flex-column">
-              <h5 class="card-title">2018 Skoda Octavia</h5>
-              <p class="card-text">Price: <strong> $38 800</strong><br>Year: <strong>2018</strong><br>ODO: <strong>6842 km</strong><br>Transmission: <strong>Automatic</strong><p class="text-secondary mb-n2"><sub>1 available</sub></p></p>
-              <button onclick="location.href='item_details.html';" type="button" class="mt-auto btn btn-outline-dark btn-block btn-sm">See more</button>
-            </div>
-          </div>
-        </div>
+        <!-- end of individual item -->
 
       </div>
-
     </div>
 
 
   </div>
-  <!--/.Slides-->
+  <!-- end of slides-->
 
 </div>
-<!--/.Carousel Wrapper-->
+<!--end of carousel Wrapper-->
 {% endblock %}

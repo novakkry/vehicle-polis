@@ -1,0 +1,158 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="row">
+  <div class="col-xl-12">
+
+  <h3 class="mb-2"> List a new vehicle</h3>
+<!-- PostItem form -->
+<form method="POST" action="" enctype="multipart/form-data">
+  {{form.hidden_tag()}}
+  <fieldset class="form-group">
+    <div class="form-check">
+      {% for radio in form.condition %}
+          {{ radio }}
+          {{ radio.label(class="mr-2")}}
+      {% endfor %}
+    </div>
+    <!-- title -->
+    <div class="form-group">
+      {{ form.title.label }}
+      {% if form.title.errors %}
+          {{ form.title(class="form-control is-invalid") }}
+          <div class="invalid-feedback">
+              {% for error in form.title.errors %}
+                  <span>{{ error }}</span>
+              {% endfor %}
+          </div>
+      {% else %}
+          {{ form.title(class="form-control", placeholder="Enter title of your listing") }}
+      {% endif %}
+    </div>
+    <!-- make -->
+    <div class="form-group">
+      {{ form.make.label }}
+      <br>
+      {{ form.make(class="btn btn-outline-dark btn-block") }}
+    </div>
+    <!-- model -->
+    <div class="form-group">
+      {{ form.model.label }}
+      {% if form.model.errors %}
+          {{ form.model(class="form-control is-invalid") }}
+          <div class="invalid-feedback">
+              {% for error in form.model.errors %}
+                  <span>{{ error }}</span>
+              {% endfor %}
+          </div>
+      {% else %}
+          {{ form.model(class="form-control", placeholder="Enter model") }}
+      {% endif %}
+    </div>
+    <!-- price -->
+    <div class="form-group">
+      {{ form.price.label }}
+      {% if form.price.errors %}
+          {{ form.price(class="form-control is-invalid") }}
+          <div class="invalid-feedback">
+              {% for error in form.price.errors %}
+                  <span>{{ error }}</span>
+              {% endfor %}
+          </div>
+      {% else %}
+          {{ form.price(class="form-control", placeholder="Enter price in AUD") }}
+      {% endif %}
+    </div>
+    <!-- year -->
+    <div class="form-group">
+      {{ form.year.label }}
+      {% if form.year.errors %}
+          {{ form.year(class="form-control is-invalid") }}
+          <div class="invalid-feedback">
+              {% for error in form.year.errors %}
+                  <span>{{ error }}</span>
+              {% endfor %}
+          </div>
+      {% else %}
+          {{ form.year(class="form-control", placeholder="Enter year of manufacture") }}
+      {% endif %}
+    </div>
+    <!-- ODO -->
+    <div class="form-group">
+      {{ form.ODO.label }}
+      {% if form.ODO.errors %}
+          {{ form.ODO(class="form-control is-invalid") }}
+          <div class="invalid-feedback">
+              {% for error in form.ODO.errors %}
+                  <span>{{ error }}</span>
+              {% endfor %}
+          </div>
+      {% else %}
+          {{ form.ODO(class="form-control", placeholder="Enter ODO in km") }}
+      {% endif %}
+    </div>
+    <!-- category -->
+    <div class="form-group">
+      {{ form.category.label(class="form-control-label") }}
+      <br>
+      {{ form.category }}
+    </div>
+    <!-- fuel -->
+    <div class="form-group">
+      {{ form.fuel.label(class="form-control-label") }}
+      <br>
+      {{ form.fuel }}
+    </div>
+    <!-- transmission -->
+    <div class="form-group">
+      {{ form.transmission.label(class="form-control-label") }}
+      <br>
+      {{ form.transmission }}
+    </div>
+    <!-- quantity -->
+    <div class="form-group">
+      {{ form.quantity.label(class="form-control-label") }}
+      {% if form.quantity.errors %}
+          {{ form.quantity(class="form-control is-invalid") }}
+          <div class="invalid-feedback">
+              {% for error in form.quantity.errors %}
+                  <span>{{ error }}</span>
+              {% endfor %}
+          </div>
+      {% else %}
+          {{ form.quantity(class="form-control", placeholder="Enter quantity") }}
+      {% endif %}
+    </div>
+    <!-- description -->
+    <div class="form-group">
+      {{ form.description.label(class="form-control-label") }}
+      {% if form.description.errors %}
+          {{ form.description(class="form-control is-invalid") }}
+          <div class="invalid-feedback">
+              {% for error in form.description.errors %}
+                  <span>{{ error }}</span>
+              {% endfor %}
+          </div>
+      {% else %}
+          {{ form.description(class="form-control") }}
+      {% endif %}
+    </div>
+    <div class="form-group">
+      {{ form.picture.label }}
+      {{ form.picture(class="form-control-file") }}
+      {% if form.picture.errors %}
+        {% for error in form.picture.errors %}
+          <span class="text-danger">{{ error }}</span><br>
+        {% endfor %}
+      {% endif %}
+    </div>
+  </fieldset>
+  <!-- submit -->
+  <div class="form-group">
+      {{ form.submit(class="btn btn-outline-dark btn-block btn-sm")}}
+  </div>
+</form>
+
+<!-- end of PostItem form -->
+
+{% endblock content %}
