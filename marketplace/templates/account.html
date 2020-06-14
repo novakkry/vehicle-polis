@@ -7,5 +7,27 @@
 <p class="text"> Your email: <b>{{ current_user.email }}</p></b>
 <p class="text"> Your role: <b>{{ current_user.role }}</p></b>
 
+<h5>Your listings</h5>
+<table class="table text-center">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Info</th>
+        <th>Date posted</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody>
+        {% for post in posts %}
+      <tr>
+        <td>{{post.id}}</td>
+        <td> <a href="{{ url_for('post', post_id=post.id) }}"> {{post.year}} {{post.make}} {{post.model}}</a></td>
+        <td>{{ post.date_posted.strftime('%d-%m-%Y') }}</td>
+        <td><a href="{{ url_for('update_post', post_id=post.id) }}">Edit</a>/<a href="{{ url_for('delete_post', post_id=post.id) }}">Delete</a></td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+
 
 {% endblock content %}

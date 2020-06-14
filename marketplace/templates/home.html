@@ -199,41 +199,48 @@
       <div class="row">
 
         <!-- individual item -->
+        {% for post in posts_first %}
         <div class="col-md-3 col-xs-5">
           <div class="card mb-2 h-100">
-            <img class="card-img-top" src="static/images/default.png" alt="Card image cap">
+            <img class="card-img-top" src="{{ url_for('static', filename='images/' + post.image_file) }}" alt="Card image cap">
             <div class="card-body d-flex flex-column">
-              <h5 class="card-title">2017 Skoda Superb</h5>
-              <p class="card-text">Price: <strong> $47 889</strong><br>Year: <strong>2017</strong><br>ODO: <strong>7500 km</strong><br>Transmission: <strong>Automatic</strong><p class="text-secondary mb-n2"><sub>1 available</sub></p></p>
-              <button onclick="location.href='item_details.html';" type="button" class="mt-auto btn btn-outline-dark btn-block btn-sm">See more</button>
+              <h5 class="card-title">{{post.year}} {{post.make}} {{post. model}}</h5>
+              <p class="card-text">Price: <strong> ${{post.price}}</strong><br>Year: <strong>{{post.year}}</strong><br>ODO: <strong>{{post.ODO}} km</strong><br>Transmission: <strong>{{post.transmission}}</strong><p class="text-secondary mb-n2"><sub>{{post.quantity}} available</sub></p></p>
+              <a href="{{ url_for('post', post_id=post.id) }}" class="btn btn-outline-dark btn-block btn-sm">See details</a>
             </div>
           </div>
         </div>
+        {% endfor %}
         <!-- end of individual item -->
 
       </div>
     </div>
+    <!-- end of second slide -->
 
+    {% if count > 4 %}
     <!--Second slide-->
     <div class="carousel-item">
       <div class="row">
 
         <!-- individual item -->
+        {% for post in posts_second %}
         <div class="col-md-3 col-xs-5">
           <div class="card mb-2 h-100">
-            <img class="card-img-top" src="static/images/cars/car_3/s-l800.jpg" alt="Card image cap">
+            <img class="card-img-top" src="{{ url_for('static', filename='images/' + post.image_file) }}" alt="Card image cap">
             <div class="card-body d-flex flex-column">
-              <h5 class="card-title">2011 Holden Commodore</h5>
-              <p class="card-text">Price: <strong> $6990</strong><br>Year: <strong>2011</strong><br>ODO: <strong>212 000 km</strong><br>Transmission: <strong>Automatic</strong><p class="text-secondary mb-n2"><sub>1 available</sub></p></p>
-              <button onclick="location.href='item_details.html';" type="button" class="mt-auto btn btn-outline-dark btn-block btn-sm">See more</button>
+              <h5 class="card-title">{{post.year}} {{post.make}} {{post. model}}</h5>
+              <p class="card-text">Price: <strong> ${{post.price}}</strong><br>Year: <strong>{{post.year}}</strong><br>ODO: <strong>{{post.ODO}} km</strong><br>Transmission: <strong>{{post.transmission}}</strong><p class="text-secondary mb-n2"><sub>{{post.quantity}} available</sub></p></p>
+              <a href="{{ url_for('post', post_id=post.id) }}" class="btn btn-outline-dark btn-block btn-sm">See details</a>
             </div>
           </div>
         </div>
+        {% endfor %}
         <!-- end of individual item -->
 
       </div>
     </div>
-
+    <!-- end of second slide -->
+    {% endif %}
 
   </div>
   <!-- end of slides-->

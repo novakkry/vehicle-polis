@@ -1,4 +1,4 @@
-from flask import render_template, url_for, flash, redirect, flash, redirect, request
+from flask import render_template, url_for, flash, redirect, flash, redirect, request, abort
 from marketplace import app, db, bcrypt
 from marketplace.forms import RegistrationForm, LoginForm, PostForm
 from marketplace.models import User, Post
@@ -12,7 +12,8 @@ def home():
     posts = Post.query.order_by(Post.id.desc()).all()
     posts_first = posts[:4]
     posts_second = posts[4:8]
-    return render_template('home.html', posts=posts)
+    count = Post.query.count()
+    return render_template('home.html', posts_first=posts_first, posts_second=posts_second, count=count)
 
 @app.route("/login", methods=['GET','POST'])
 def login():
@@ -53,10 +54,8 @@ def logout():
 @app.route("/account")
 @login_required
 def account():
-    if current_user.is_authenticated: #this verification doesn't have to be here - I did it before I knew about @login_required
-        return render_template('account.html')
-    else: 
-        return redirect(url_for('home'))
+    posts = Post.query.order_by(Post.id.desc()).filter(Post.author == current_user)
+    return render_template('account.html', posts=posts)
 
 def save_picture(form_picture):
     random_hex = secrets.token_hex(8)
@@ -78,17 +77,70 @@ def add_item():
         if form.validate_on_submit():
             if form.picture.data:
                 picture_file = save_picture(form.picture.data)
-                post = Post(image_file = picture_file, title = form.title.data, condition = form.condition.data, make = form.make.data, model = form.model.data, price = form.price.data, year = form.year.data, ODO = form.ODO.data, category = form.category.data, fuel = form.fuel.data, transmission = form.transmission.data, quantity = form.quantity.data, description = form.description.data, user_id = current_user.id)
+                post = Post(image_file = picture_file, title = form.title.data, condition = form.condition.data, make = form.make.data, model = form.model.data, price = form.price.data, year = form.year.data, ODO = form.ODO.data, category = form.category.data, fuel = form.fuel.data, transmission = form.transmission.data, quantity = form.quantity.data, description = form.description.data, author = current_user)
             else:
-                post = Post(title = form.title.data, condition = form.condition.data, make = form.make.data, model = form.model.data, price = form.price.data, year = form.year.data, ODO = form.ODO.data, category = form.category.data, fuel = form.fuel.data, transmission = form.transmission.data, quantity = form.quantity.data, description = form.description.data, user_id = current_user.id)
+                post = Post(title = form.title.data, condition = form.condition.data, make = form.make.data, model = form.model.data, price = form.price.data, year = form.year.data, ODO = form.ODO.data, category = form.category.data, fuel = form.fuel.data, transmission = form.transmission.data, quantity = form.quantity.data, description = form.description.data, author = current_user)
             db.session.add(post)
             db.session.commit()
             flash('Your car has been added!', 'success')
             return redirect(url_for('home'))
-        return render_template('add_item.html', form=form)
+        return render_template('add_item.html', form=form, legend='Create a new listing')
 
 @app.route("/item_list")
 def item_list():
     posts = Post.query.order_by(Post.id.desc()).all()
-    #posts = posts[1:2] limiting the selection
     return render_template('item_list.html', posts=posts)
+
+@app.route("/item_details/<int:post_id>")
+def post(post_id):
+    post = Post.query.get_or_404(post_id)
+    return render_template('item_details.html', title=post.title, post=post)
+
+@app.route("/item_details/<int:post_id>/update", methods=['GET','POST'])
+@login_required
+def update_post(post_id):
+    post = Post.query.get_or_404(post_id)
+    if post.author != current_user:
+        abort(403)
+    form = PostForm()
+    if form.validate_on_submit():
+        post.title = form.title.data
+        post.make = form.make.data
+        post.condition = form.condition.data
+        post.model = form.model.data
+        post.price = form.price.data
+        post.year = form.year.data
+        post.ODO = form.ODO.data
+        post.category = form.category.data
+        post.fuel = form.fuel.data
+        post.transmission = form.transmission.data
+        post.description = form.description.data
+        post.quantity = form.quantity.data
+        db.session.commit()
+        flash('Your listing has been updated!', 'success')
+        return redirect(url_for('post', post_id=post.id))
+    elif request.method == 'GET':
+        form.title.data = post.title
+        form.make.data = post.make
+        form.condition.data = post.condition
+        form.model.data = post.model
+        form.price.data = post.price
+        form.year.data = post.year
+        form.ODO.data = post.ODO
+        form.category.data = post.category
+        form.fuel.data = post.fuel
+        form.transmission.data = post.transmission
+        form.quantity.data = post.quantity
+        form.description.data = post.description
+    return render_template('add_item.html', form=form, legend='Update listing')
+
+@app.route("/item_details/<int:post_id>/delete", methods=['GET','POST'])
+@login_required
+def delete_post(post_id):
+    post = Post.query.get_or_404(post_id)
+    if post.author != current_user:
+        abort(403)
+    db.session.delete(post)
+    db.session.commit()
+    flash('Your listing has been deleted!', 'info')
+    return redirect(url_for('home'))

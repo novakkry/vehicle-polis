@@ -30,13 +30,13 @@ class LoginForm(FlaskForm):
 
 class PostForm(FlaskForm):
     condition = RadioField('Condition', choices=[('New','New'),('Used','Used'),('Salvaged','Salvaged')], default='New')
-    title = StringField('Title', validators=[DataRequired(), Length(min=3, max=20)])
+    title = StringField('Title', validators=[DataRequired(), Length(min=3, max=40)])
     make = SelectField('Make',validators=[DataRequired()], choices=[('Alfa Romeo', 'Alfa Romeo'), ('Audi', 'Audi'), ('BMW', 'BMW'), ('Chevrolete', 'Chevrolet'), ('Citroen', 'Citroen'), ('Fiat', 'Fiat'), ('Ford', 'Ford'), ('Honda', 'Honda'), ('Hyundai', 'Hyundai'), ('Kia', 'Kia'), ('Mazda', 'Mazda'), ('Mercedes', 'Mercedes'), ('Mitsubishi', 'Mitsubishi'), ('Nissan', 'Nissan'), ('Opel', 'Opel'), ('Peugeot', 'Peugeot'), ('Renault', 'Renault'), ('Seat', 'Seat'), ('Skoda', 'Skoda'), ('Subaru', 'Subaru'), ('Suzuki', 'Suzuki'), ('Toyota', 'Toyota'), ('Volkswagen', 'Volkswagen'), ('Volvo', 'Volvo')])
     model = StringField('Model', validators=[DataRequired(), Length(min=1, max=20)])
     price = IntegerField('Price', validators=[DataRequired('This field has to be a number and is required.')])
     year = IntegerField('Year', validators=[DataRequired('This field has to be a number and is required.')])
     ODO = IntegerField('ODO (km)', validators=[DataRequired('This field has to be a number with no spaces and is required.')])
-    category = SelectField('Category',validators=[DataRequired()], choices=[('hatchbag', 'Hatchbag'), ('sedan', 'Sedan'), ('muv/suv', 'MUV/SUV'), ('coupe', 'Coupe'), ('convertible', 'Convertible'), ('wagon', 'Wagon'), ('van', 'Van'), ('sport', 'Sport')])
+    category = SelectField('Category',validators=[DataRequired()], choices=[('Hatchbag', 'Hatchbag'), ('Sedan', 'Sedan'), ('MUV/SUV', 'MUV/SUV'), ('Coupe', 'Coupe'), ('Convertible', 'Convertible'), ('Wagon', 'Wagon'), ('Van', 'Van'), ('Sport', 'Sport')])
     fuel = SelectField('Fuel type',validators=[DataRequired()], choices=[('Gas', 'Gas'), ('Diesel', 'Diesel'), ('Electric', 'Electric')])
     transmission = SelectField('Transmission type',validators=[DataRequired()], choices=[('Automatic', 'Automatic'), ('Manual', 'Manual')])
     quantity = IntegerField('Quantity', validators=[DataRequired('This field has to be a number and is required.')])
