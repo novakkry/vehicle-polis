@@ -153,9 +153,6 @@ def order_item(post_id):
     maxquantity = post.quantity
     form.quantity.validators = [form.quantity.validators[0], NumberRange(min=1, max=maxquantity, message='Ordered quantity has to be no more than available quantity.')]
     if form.validate_on_submit():
-        if form.quantity.data > post.quantity:
-            flash('You can not order more than available quantity.', 'danger')
-            return render_template('order_item.html', post=post, form=form)
         flash('You sucessfully submitted an order', 'success')
         return render_template('order_item.html', post=post, form=form)
     elif request.method == 'GET':
