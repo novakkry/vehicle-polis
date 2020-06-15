@@ -1,7 +1,7 @@
 from flask import render_template, url_for, redirect, flash, redirect, request, abort
 from marketplace import app, db, bcrypt
 from marketplace.forms import RegistrationForm, LoginForm, PostForm, OrderForm, NumberRange
-from marketplace.models import User, Post
+from marketplace.models import User, Post, Order
 from flask_login import login_user, current_user, logout_user, login_required
 import os
 import secrets
@@ -153,6 +153,10 @@ def order_item(post_id):
     maxquantity = post.quantity
     form.quantity.validators = [form.quantity.validators[0], NumberRange(min=1, max=maxquantity, message='Ordered quantity has to be no more than available quantity.')]
     if form.validate_on_submit():
+        order = Order(quantity=form.quantity.data, first_name=form.first_name.data, last_name=form.last_name.data, company_name=form.company_name.data, address1=form.address1.data, address2=form.address2.data, suburb=form.suburb.data, city=form.city.data, state=form.state.data, country=form.country.data, phone=form.phone.data, email=form.email.data, author = current_user, item = post)
+        db.session.add(order)
+        db.session.commit()
+        post.quantity = post.quantity-form.quantity.data
         flash('You sucessfully submitted an order', 'success')
         return render_template('order_item.html', post=post, form=form)
     elif request.method == 'GET':
