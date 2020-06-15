@@ -1,135 +1,228 @@
 {% extends "base.html" %}
 {% block content %}
-
-<div class="row">
-  <div class="col">
-    <h3 class="mb-2">Items to order:</h3>
+<form method="POST" action="">
+  {{form.hidden_tag()}}
+  <div class="row">
+    <div class="col">
+      <h3 class="mb-2">Items to order:</h3>
+    </div>
   </div>
-</div>
 
-<!-- details about item -->
-<div class="row border-top border-bottom mx-2">
-  <div class="card border-0">
-    <div class="card-body">
-      <div class="row">
-        <div class="col-xl-2 col-lg-2 col-xs-2 mp-2">
-        <img class="shadow img-fluid" src="{{ url_for('static', filename='images/' + post.image_file) }}" alt="Card image cap">
-        </div>
-        <div class="col-xl-5 col-lg-5 col-xs-5">
-          <h6 class="card-title">{{ post.title }}</h6>
-          Seller: <strong>{{ post.author.username }}</strong><br>Quantity available: <strong>{{ post.quantity }}</strong>
-        </div>
+  <!-- details about item -->
+  <div class="row border-top border-bottom mx-2">
+    <div class="card border-0">
+      <div class="card-body">
+        <div class="row">
+          <div class="col-xl-2 col-lg-2 col-xs-2 mp-2">
+          <img class="shadow img-fluid" src="{{ url_for('static', filename='images/' + post.image_file) }}" alt="Card image cap">
+          </div>
+          <div class="col-xl-5 col-lg-5 col-xs-5">
+            <h6 class="card-title">{{ post.title }}</h6>
+            Seller: <strong>{{ post.author.username }}</strong><br>Quantity available: <strong>{{ post.quantity }}</strong>
+          </div>
 
-        <div class="col-xl-2 col-lg-2 col-xs-2 my-auto" align="center">
-          <select class="form-control form-control-sm">
-            <option>Quantity</option>
-            <option>1</option>
-          </select>
-          <!-- <span class="align-bottom">Quantity</span> -->
-        </div>
+          <div class="col-xl-2 col-lg-2 col-xs-2 my-auto" align="center">
+            <!-- quantity -->
+            <div class="form-group">
+              {{ form.quantity.label }}<font color="red">*</font><br>
+              {% if form.quantity.errors %}
+                  {{ form.quantity(class="form-control is-invalid") }}
+                  <div class="invalid-feedback">
+                      {% for error in form.quantity.errors %}
+                          <span>{{ error }}</span>
+                      {% endfor %}
+                  </div>
+              {% else %}
+                  {{ form.quantity(class="form-control") }}
+              {% endif %}
+            </div>
+          </div>
 
-        <div class="col-xl-3 col-lg-3 col-xs-3 my-auto" align="center">
-          <h5>Price: ${{ post.price }}</h5>
-        </div>
+          <div class="col-xl-3 col-lg-3 col-xs-3 my-auto" align="center">
+            <h5>Unit price: ${{ post.price }}</h5>
+          </div>
 
+        </div>
       </div>
     </div>
   </div>
-</div>
 
-<!-- order details -->
-<div class="row mt-3 mb-1 mx-1">
-  <div class="col">
-    <h6 class="mb-2">Order details:</h6>
+  <!-- order details -->
+  <div class="row mt-3 mb-1 mx-1">
+    <div class="col">
+      <h4 class="mb-2">Order details:</h4>
+    </div>
   </div>
-</div>
 
-      <div class="row mx-3">
+  <div class="row mx-3">
+    <fieldset class="form-group">
+      <!-- first_name -->
+      <div class="form-group">
+        {{ form.first_name.label }}<font color="red">*</font><br>
+        {% if form.first_name.errors %}
+            {{ form.first_name(class="form-control is-invalid") }}
+            <div class="invalid-feedback">
+                {% for error in form.first_name.errors %}
+                    <span>{{ error }}</span>
+                {% endfor %}
+            </div>
+        {% else %}
+            {{ form.first_name(class="form-control") }}
+        {% endif %}
+      </div>
 
-  <div class="input-group mb-1">
-    <div class="input-group-prepend">
-      <span class="input-group-text" id="basic-addon1">First name <font color="red">*</font></span>
-    </div>
-    <input type="text" class="form-control" placeholder="" aria-label="Username" aria-describedby="basic-addon1">
-  </div>
-  <div class="input-group mb-1">
-    <div class="input-group-prepend">
-      <span class="input-group-text" id="basic-addon1">Last name <font color="red">*</font></span>
-    </div>
-    <input type="text" class="form-control" placeholder="" aria-label="Username" aria-describedby="basic-addon1">
-  </div>
-  <div class="input-group mb-3">
-    <div class="input-group-prepend">
-      <span class="input-group-text" id="basic-addon1">Company name</span>
-    </div>
-    <input type="text" class="form-control" placeholder="" aria-label="Username" aria-describedby="basic-addon1">
-  </div>
-  <div class="input-group mb-1">
-    <div class="input-group-prepend">
-      <span class="input-group-text" id="basic-addon1">Street address<font color="red">*</font></span>
-    </div>
-    <input type="text" class="form-control" placeholder="Line 1" aria-label="Username" aria-describedby="basic-addon1">
-  </div>       
-  <div class="input-group mb-1">
-    <div class="input-group-prepend">
-      <span class="input-group-text" id="basic-addon1">Street address</span>
-    </div>
-    <input type="text" class="form-control" placeholder="Line 2" aria-label="Username" aria-describedby="basic-addon1">
-  </div>  
-  <div class="input-group mb-1">
-    <div class="input-group-prepend">
-      <span class="input-group-text" id="basic-addon1">Suburb<font color="red">*</font></span>
-    </div>
-    <input type="text" class="form-control" placeholder="" aria-label="Username" aria-describedby="basic-addon1">
-  </div>    
-  <div class="input-group mb-1">
-    <div class="input-group-prepend">
-      <span class="input-group-text" id="basic-addon1">City<font color="red">*</font></span>
-    </div>
-    <input type="text" class="form-control" placeholder="" aria-label="Username" aria-describedby="basic-addon1">
-  </div>   
-  <div class="input-group mb-1">
-    <div class="input-group-prepend">
-      <span class="input-group-text" id="basic-addon1">State<font color="red">*</font></span>
-    </div>
-    <input type="text" class="form-control" placeholder="" aria-label="Username" aria-describedby="basic-addon1">
-  </div>   
-  <div class="input-group mb-3">
-    <div class="input-group-prepend">
-      <label class="input-group-text" for="inputGroupSelect01">Country<font color="red">*</font></label>
-    </div>
-    <select class="custom-select" id="inputGroupSelect01">
-      <option selected>Australia</option>
-    </select>
-  </div>
-  <h6 class="mb-2">Contact details</h6>
-  <div class="input-group mb-1">
-    <div class="input-group-prepend">
-      <span class="input-group-text" id="basic-addon1">Phone number<font color="red">*</font></span>
-    </div>
-    <input type="text" class="form-control" placeholder="" aria-label="Username" aria-describedby="basic-addon1">
-  </div>  
-  <div class="input-group mb-1">
-    <div class="input-group-prepend">
-      <span class="input-group-text" id="basic-addon1">Email<font color="red">*</font></span>
-    </div>
-    <input type="text" class="form-control" placeholder="" aria-label="Username" aria-describedby="basic-addon1">
-  </div>  
+      <!-- last_name -->
+      <div class="form-group">
+        {{ form.last_name.label }}<font color="red">*</font><br>
+        {% if form.last_name.errors %}
+            {{ form.last_name(class="form-control is-invalid") }}
+            <div class="invalid-feedback">
+                {% for error in form.last_name.errors %}
+                    <span>{{ error }}</span>
+                {% endfor %}
+            </div>
+        {% else %}
+            {{ form.last_name(class="form-control") }}
+        {% endif %}
+      </div>
 
-  <div class="d-flex flex-column bd-highlight mb-3">
-    <div class="mt-2 bd-highlight">
-      <p>All items on this server have to be collected and paid in person. After submitting this order, you (as a buyer) are legally binded to pick up and pay the item within 10 days from the moment of purchase.</p>
-    </div>
-    <div class="bd-highlight">
-      <div class="form-check">
-        <input type="checkbox" class="form-check-input" id="exampleCheck1">
-        <label class="form-check-label" for="exampleCheck1"><font color="red">*</font>Agree with <a href="#">terms & conditions</a></label>
+      <!-- company_name -->
+      <div class="form-group">
+        {{ form.company_name.label }}<font color="red">*</font><br>
+        {% if form.company_name.errors %}
+            {{ form.company_name(class="form-control is-invalid") }}
+            <div class="invalid-feedback">
+                {% for error in form.company_name.errors %}
+                    <span>{{ error }}</span>
+                {% endfor %}
+            </div>
+        {% else %}
+            {{ form.company_name(class="form-control") }}
+        {% endif %}
+      </div>
+
+      <!-- address1 -->
+      <div class="form-group">
+        {{ form.address1.label }}<font color="red">*</font><br>
+        {% if form.address1.errors %}
+            {{ form.address1(class="form-control is-invalid") }}
+            <div class="invalid-feedback">
+                {% for error in form.address1.errors %}
+                    <span>{{ error }}</span>
+                {% endfor %}
+            </div>
+        {% else %}
+            {{ form.address1(class="form-control") }}
+        {% endif %}
+      </div>  
+
+      <!-- address2 -->
+      <div class="form-group">
+        {{ form.address2.label }}
+        {% if form.address2.errors %}
+            {{ form.address2(class="form-control is-invalid") }}
+            <div class="invalid-feedback">
+                {% for error in form.address2.errors %}
+                    <span>{{ error }}</span>
+                {% endfor %}
+            </div>
+        {% else %}
+            {{ form.address2(class="form-control") }}
+        {% endif %}
+      </div>   
+
+      <!-- suburb -->
+      <div class="form-group">
+        {{ form.suburb.label }}<font color="red">*</font><br>
+        {% if form.suburb.errors %}
+            {{ form.suburb(class="form-control is-invalid") }}
+            <div class="invalid-feedback">
+                {% for error in form.suburb.errors %}
+                    <span>{{ error }}</span>
+                {% endfor %}
+            </div>
+        {% else %}
+            {{ form.suburb(class="form-control") }}
+        {% endif %}
+      </div>  
+
+      <!-- city -->
+      <div class="form-group">
+        {{ form.city.label }}<font color="red">*</font><br>
+        {% if form.city.errors %}
+            {{ form.city(class="form-control is-invalid") }}
+            <div class="invalid-feedback">
+                {% for error in form.city.errors %}
+                    <span>{{ error }}</span>
+                {% endfor %}
+            </div>
+        {% else %}
+            {{ form.city(class="form-control") }}
+        {% endif %}
+      </div>  
+
+      <!-- state -->
+      <div class="form-group">
+        {{ form.state.label }}<font color="red">*</font><br>
+        {% if form.state.errors %}
+            {{ form.state(class="form-control is-invalid") }}
+            <div class="invalid-feedback">
+                {% for error in form.state.errors %}
+                    <span>{{ error }}</span>
+                {% endfor %}
+            </div>
+        {% else %}
+            {{ form.state(class="form-control") }}
+        {% endif %}
+      </div>  
+
+      <!-- country -->
+      <div class="form-group">
+        {{ form.country.label(class="form-control-label") }}<font color="red">*</font>
+        <br>
+        {{ form.country }}
+      </div>
+
+      <h4 class="mb-2">Contact details</h4>
+
+      <div class="form-group">
+        {{ form.phone.label }}<font color="red">*</font><br>
+        {% if form.phone.errors %}
+            {{ form.phone(class="form-control is-invalid") }}
+            <div class="invalid-feedback">
+                {% for error in form.phone.errors %}
+                    <span>{{ error }}</span>
+                {% endfor %}
+            </div>
+        {% else %}
+            {{ form.phone(class="form-control") }}
+        {% endif %}
+      </div>   
+
+      <div class="form-group">
+        {{ form.email.label }}<font color="red">*</font><br>
+        {% if form.email.errors %}
+            {{ form.email(class="form-control is-invalid") }}
+            <div class="invalid-feedback">
+                {% for error in form.email.errors %}
+                    <span>{{ error }}</span>
+                {% endfor %}
+            </div>
+        {% else %}
+            {{ form.email(class="form-control") }}
+        {% endif %}
+      </div>  
+
+      <div class="d-flex flex-column bd-highlight mb-3">
+        <div class="mt-2 bd-highlight">
+          <p>All items on this server will be delivered by delivery company and paid in person. After submitting this order, you (as a buyer) are legally binded to pay for the purchase once it is received.</p>
+        </div>
+    </fieldset>
+      <div class=" mt-n5">
+        <sub><font color="red">*</font>Mandatory fields</sub>
       </div>
     </div>
-    <div class="bd-highlight m">
-      <sub><font color="red">*</font>Mandatory fields</sub>
-    </div>
   </div>
-</div>
-<button type="button" class="btn btn-outline-dark btn-block btn-sm">Submit order</button>
+  {{ form.submit(class="btn btn-outline-dark btn-block btn-sm") }}
+</form>
 {% endblock content %}

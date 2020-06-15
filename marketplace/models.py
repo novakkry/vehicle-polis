@@ -16,11 +16,11 @@ class User(db.Model, UserMixin):
     password = db.Column(db.String(60), nullable=False)
     role = db.Column(db.String(10), unique=False, nullable=False) #not sure about this one, gotta figure out
     posts = db.relationship('Post', backref='author', lazy=True)
+    orders = db.relationship('Order', backref='author', lazy=True)
 
     def __repr__(self):
         return f"User('{self.username}', '{self.email}')"
 
-#image of the car is missing - let's do it later on once it's working
 class Post(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     condition = db.Column(db.String(100), nullable=False)
@@ -38,6 +38,28 @@ class Post(db.Model):
     description = db.Column(db.Text, nullable=True)
     image_file = db.Column(db.String(20), nullable=False, default='default.png')
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+    orders = db.relationship('Order', backref='item', lazy=True)
 
     def __repr__(self):
         return f"Post('{self.title}', '{self.date_posted}')"
+
+class Order(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    quantity = db.Column(db.Integer(), nullable=False)
+    first_name = db.Column(db.String(100), nullable=False)
+    last_name = db.Column(db.String(100), nullable=False)
+    company_name = db.Column(db.String(100), nullable=True)
+    address1 = db.Column(db.String(100), nullable=False)
+    address2 = db.Column(db.String(100), nullable=False)
+    suburb = db.Column(db.String(100), nullable=False)
+    city = db.Column(db.String(100), nullable=False)
+    state = db.Column(db.String(100), nullable=False)
+    country = db.Column(db.String(100), nullable=False)
+    phone = db.Column(db.String(100), nullable=False)
+    email = db.Column(db.String(100), nullable=False)
+    date_posted = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
+    item_id = db.Column(db.Integer, db.ForeignKey('post.id'), nullable=False)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+
+    def __repr__(self):
+        return f"Post('{self.id}', '{self.item_id.title}', '{self.date_posted}')"

@@ -1,7 +1,7 @@
 from flask_wtf import FlaskForm
 from flask_wtf.file import FileField, FileAllowed
 from wtforms import StringField, PasswordField, SubmitField, BooleanField, RadioField, TextAreaField, IntegerField, SelectField
-from wtforms.validators import DataRequired, Length, Email, EqualTo, ValidationError
+from wtforms.validators import DataRequired, Length, Email, EqualTo, ValidationError, NumberRange
 from marketplace.models import User
 
 class RegistrationForm(FlaskForm):
@@ -30,11 +30,11 @@ class LoginForm(FlaskForm):
 
 class PostForm(FlaskForm):
     condition = RadioField('Condition', choices=[('New','New'),('Used','Used'),('Salvaged','Salvaged')], default='New')
-    title = StringField('Title', validators=[DataRequired(), Length(min=3, max=40)])
+    title = StringField('Title of your ad', validators=[DataRequired(), Length(min=3, max=40)])
     make = SelectField('Make',validators=[DataRequired()], choices=[('Alfa Romeo', 'Alfa Romeo'), ('Audi', 'Audi'), ('BMW', 'BMW'), ('Chevrolete', 'Chevrolet'), ('Citroen', 'Citroen'), ('Fiat', 'Fiat'), ('Ford', 'Ford'), ('Honda', 'Honda'), ('Hyundai', 'Hyundai'), ('Kia', 'Kia'), ('Mazda', 'Mazda'), ('Mercedes', 'Mercedes'), ('Mitsubishi', 'Mitsubishi'), ('Nissan', 'Nissan'), ('Opel', 'Opel'), ('Peugeot', 'Peugeot'), ('Renault', 'Renault'), ('Seat', 'Seat'), ('Skoda', 'Skoda'), ('Subaru', 'Subaru'), ('Suzuki', 'Suzuki'), ('Toyota', 'Toyota'), ('Volkswagen', 'Volkswagen'), ('Volvo', 'Volvo')])
     model = StringField('Model', validators=[DataRequired(), Length(min=1, max=20)])
     price = IntegerField('Price', validators=[DataRequired('This field has to be a number and is required.')])
-    year = IntegerField('Year', validators=[DataRequired('This field has to be a number and is required.')])
+    year = IntegerField('Year', validators=[DataRequired('This field has to be a number and is required.'), NumberRange(min=1900, max=2020)])
     ODO = IntegerField('ODO (km)', validators=[DataRequired('This field has to be a number with no spaces and is required.')])
     category = SelectField('Category',validators=[DataRequired()], choices=[('Hatchbag', 'Hatchbag'), ('Sedan', 'Sedan'), ('MUV/SUV', 'MUV/SUV'), ('Coupe', 'Coupe'), ('Convertible', 'Convertible'), ('Wagon', 'Wagon'), ('Van', 'Van'), ('Sport', 'Sport')])
     fuel = SelectField('Fuel type',validators=[DataRequired()], choices=[('Gas', 'Gas'), ('Diesel', 'Diesel'), ('Electric', 'Electric')])
@@ -43,3 +43,18 @@ class PostForm(FlaskForm):
     description = TextAreaField('Description')
     picture = FileField('Upload a picture (.png, .jpg)', validators=[FileAllowed(['png', 'jpg'])])
     submit = SubmitField('Post vehicle')
+
+class OrderForm(FlaskForm):
+    quantity = IntegerField('Quantity', validators=[DataRequired('This field has to be a positive number and is required.')])
+    first_name = StringField('First name', validators=[DataRequired(), Length(min=2, max=40)])
+    last_name = StringField('Last name', validators=[DataRequired(), Length(min=2, max=60)])
+    company_name = StringField('Company name', validators=[DataRequired(), Length(min=2, max=100)])
+    address1 = StringField('Address 1', validators=[DataRequired(), Length(min=2, max=100)])
+    address2 = StringField('Address 2')
+    suburb = StringField('Suburb', validators=[DataRequired(), Length(min=2, max=100)])
+    city = StringField('City', validators=[DataRequired(), Length(min=2, max=100)])
+    state = StringField('State', validators=[DataRequired(), Length(min=2, max=100)])
+    country = SelectField('Country',validators=[DataRequired()], choices=[('Australia', 'Australia')])
+    phone = StringField('Phone', validators=[DataRequired(), Length(min=2, max=100)])
+    email = StringField('Email', validators=[DataRequired(), Length(min=2, max=100), Email()])
+    submit = SubmitField('Submit order')

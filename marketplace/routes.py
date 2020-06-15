@@ -1,6 +1,6 @@
-from flask import render_template, url_for, flash, redirect, flash, redirect, request, abort
+from flask import render_template, url_for, redirect, flash, redirect, request, abort
 from marketplace import app, db, bcrypt
-from marketplace.forms import RegistrationForm, LoginForm, PostForm
+from marketplace.forms import RegistrationForm, LoginForm, PostForm, OrderForm, NumberRange
 from marketplace.models import User, Post
 from flask_login import login_user, current_user, logout_user, login_required
 import os
@@ -149,4 +149,15 @@ def delete_post(post_id):
 @login_required
 def order_item(post_id):
     post = Post.query.get_or_404(post_id)
-    return render_template('order_item.html', post=post)
+    form = OrderForm()
+    maxquantity = post.quantity
+    form.quantity.validators = [form.quantity.validators[0], NumberRange(min=1, max=maxquantity, message='Ordered quantity has to be no more than available quantity.')]
+    if form.validate_on_submit():
+        if form.quantity.data > post.quantity:
+            flash('You can not order more than available quantity.', 'danger')
+            return render_template('order_item.html', post=post, form=form)
+        flash('You sucessfully submitted an order', 'success')
+        return render_template('order_item.html', post=post, form=form)
+    elif request.method == 'GET':
+        form.email.data = current_user.email
+    return render_template('order_item.html', post=post, form=form)
