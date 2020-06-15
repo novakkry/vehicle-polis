@@ -47,7 +47,7 @@
         <br>
       {% endif %}
       Date posted: <strong> {{ post.date_posted.strftime('%d-%m-%Y') }}</strong><br>Seller: <strong>{{ post.author.username }}</strong><br>Seller email: <strong>{{ post.author.email }}</strong></p>
-    <a href="order_item.html"><button type="button" class="btn btn-outline-dark btn-block btn-sm">Order vehicle</button></a>
+    <a href="{{ url_for('order_item', post_id=post.id) }}"><button type="button" class="btn btn-outline-dark btn-block btn-sm">Order vehicle</button></a>
   </div>
 <!-- end of right sidebar -->
 </div>

@@ -9,7 +9,7 @@ class RegistrationForm(FlaskForm):
     email = StringField('Email', validators=[DataRequired(), Email()])
     password = PasswordField('Password', validators=[DataRequired()])
     confirm_password = PasswordField('Confirm Password', validators=[DataRequired(), EqualTo('password')])
-    role = RadioField('I want to', choices=[('buyer','buy only'),('seller','buy and sell')], default='buyer')
+    role = RadioField('I want to', choices=[('buyer','buy only (buyer)'),('seller','buy and sell (seller)')], default='buyer')
     submit = SubmitField('Sign Up')
 
     def validate_username(self, username):

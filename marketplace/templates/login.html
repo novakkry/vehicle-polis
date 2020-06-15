@@ -38,6 +38,12 @@
         {{ form.submit(class="btn btn-outline-dark btn-block btn-sm") }}
     </div>
 </form>
+
+<div class="mt-2">
+    <small class="text-muted">
+        Don't have an account? <a class="ml-2" href="{{ url_for('register') }}">Sign up!</a>
+    </small>
+</div>
 <!-- end of login form -->
 
 {% endblock content %}

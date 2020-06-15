@@ -9,7 +9,8 @@
 <form method="POST" action="" enctype="multipart/form-data">
   {{form.hidden_tag()}}
   <fieldset class="form-group">
-    <div class="form-check">
+    <div class="form-group">
+      {{ form.condition.label }}<font color="red">*</font><br>
       {% for radio in form.condition %}
           {{ radio }}
           {{ radio.label(class="mr-2")}}
@@ -17,7 +18,7 @@
     </div>
     <!-- title -->
     <div class="form-group">
-      {{ form.title.label }}
+      {{ form.title.label }}<font color="red">*</font><br>
       {% if form.title.errors %}
           {{ form.title(class="form-control is-invalid") }}
           <div class="invalid-feedback">
@@ -31,13 +32,13 @@
     </div>
     <!-- make -->
     <div class="form-group">
-      {{ form.make.label }}
+      {{ form.make.label }}<font color="red">*</font>
       <br>
       {{ form.make(class="btn btn-outline-dark btn-block") }}
     </div>
     <!-- model -->
     <div class="form-group">
-      {{ form.model.label }}
+      {{ form.model.label }}<font color="red">*</font>
       {% if form.model.errors %}
           {{ form.model(class="form-control is-invalid") }}
           <div class="invalid-feedback">
@@ -51,7 +52,7 @@
     </div>
     <!-- price -->
     <div class="form-group">
-      {{ form.price.label }}
+      {{ form.price.label }}<font color="red">*</font>
       {% if form.price.errors %}
           {{ form.price(class="form-control is-invalid") }}
           <div class="invalid-feedback">
@@ -65,7 +66,7 @@
     </div>
     <!-- year -->
     <div class="form-group">
-      {{ form.year.label }}
+      {{ form.year.label }}<font color="red">*</font>
       {% if form.year.errors %}
           {{ form.year(class="form-control is-invalid") }}
           <div class="invalid-feedback">
@@ -79,7 +80,7 @@
     </div>
     <!-- ODO -->
     <div class="form-group">
-      {{ form.ODO.label }}
+      {{ form.ODO.label }}<font color="red">*</font>
       {% if form.ODO.errors %}
           {{ form.ODO(class="form-control is-invalid") }}
           <div class="invalid-feedback">
@@ -93,25 +94,25 @@
     </div>
     <!-- category -->
     <div class="form-group">
-      {{ form.category.label(class="form-control-label") }}
+      {{ form.category.label(class="form-control-label") }}<font color="red">*</font>
       <br>
       {{ form.category }}
     </div>
     <!-- fuel -->
     <div class="form-group">
-      {{ form.fuel.label(class="form-control-label") }}
+      {{ form.fuel.label(class="form-control-label") }}<font color="red">*</font>
       <br>
       {{ form.fuel }}
     </div>
     <!-- transmission -->
     <div class="form-group">
-      {{ form.transmission.label(class="form-control-label") }}
+      {{ form.transmission.label(class="form-control-label") }}<font color="red">*</font>
       <br>
       {{ form.transmission }}
     </div>
     <!-- quantity -->
     <div class="form-group">
-      {{ form.quantity.label(class="form-control-label") }}
+      {{ form.quantity.label(class="form-control-label") }}<font color="red">*</font>
       {% if form.quantity.errors %}
           {{ form.quantity(class="form-control is-invalid") }}
           <div class="invalid-feedback">
@@ -150,7 +151,8 @@
     {% endif %}
   </fieldset>
   <!-- submit -->
-  <div class="form-group">
+  <div class="mt-n3"><sub><font color="red">*</font>Mandatory fields</sub></div>
+  <div class="form-group mt-3">
       {{ form.submit(class="btn btn-outline-dark btn-block btn-sm")}}
   </div>
 </form>

@@ -144,3 +144,9 @@ def delete_post(post_id):
     db.session.commit()
     flash('Your listing has been deleted!', 'info')
     return redirect(url_for('home'))
+
+@app.route("/item_details/<int:post_id>/order", methods=['GET','POST'])
+@login_required
+def order_item(post_id):
+    post = Post.query.get_or_404(post_id)
+    return render_template('order_item.html', post=post)
