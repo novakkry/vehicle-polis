@@ -205,7 +205,22 @@
             <img class="card-img-top" src="{{ url_for('static', filename='images/' + post.image_file) }}" alt="Card image cap">
             <div class="card-body d-flex flex-column">
               <h5 class="card-title">{{post.year}} {{post.make}} {{post. model}}</h5>
-              <p class="card-text">Price: <strong> ${{post.price}}</strong><br>Year: <strong>{{post.year}}</strong><br>ODO: <strong>{{post.ODO}} km</strong><br>Transmission: <strong>{{post.transmission}}</strong><p class="text-secondary mb-n2"><sub>{{post.quantity}} available</sub></p></p>
+              <p class="card-text">
+                Price: <strong>${{post.price}}</strong><br>
+                Year: <strong>{{post.year}}</strong><br>
+                ODO: <strong>{{post.ODO}} km</strong><br>
+                Transmission: <strong>{{post.transmission}}</strong>
+                <p class="text-secondary mb-n2">
+                  <sub>
+                    {% if post.quantity == 0 %}
+                      out of stock
+                    {% else %}
+                      {{post.quantity}} in stock
+                    {% endif %}
+                    
+                    </sub>
+                </p>
+              </p>
               <a href="{{ url_for('post', post_id=post.id) }}" class="btn btn-outline-dark btn-block btn-sm">See details</a>
             </div>
           </div>

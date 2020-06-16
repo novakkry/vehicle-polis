@@ -7,8 +7,10 @@
 <p class="text"> Your email: <b>{{ current_user.email }}</p></b>
 <p class="text"> Your role: <b>{{ current_user.role }}</p></b>
 
+<!-- listings -->
 <h5>Your listings</h5>
-<table class="table text-center">
+{% if posts_count %}
+  <table class="table text-center">
     <thead>
       <tr>
         <th>ID</th>
@@ -28,6 +30,34 @@
       {% endfor %}
     </tbody>
   </table>
-
+{% else %}
+  <p class="mb-2">You have no listings</p>
+{% endif %}
+<!-- orders -->
+<h5>Your orders</h5>
+{% if orders_count %}
+<table class="table text-center">
+  <thead>
+    <tr>
+      <th>Order ID</th>
+      <th>Ordered item</th>
+      <th>Date and time ordered</th>
+      <th>Action</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for order in orders %}
+      <tr>
+        <td>{{order.id}}</td>
+        <td> <a href="{{ url_for('order_details', order_id=order.id) }}"> {{order.item.year}} {{order.item.make}} {{order.item.model}}</a></td>
+        <td>{{ order.date_posted.strftime('%d-%m-%Y %H:%M:%S') }}</td>
+        <td><a href="{{ url_for('order_details', order_id=order.id) }}">View</a></td>
+      </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% else %}
+<p class="mb-2">You have no orders</p>
+{% endif %}
 
 {% endblock content %}

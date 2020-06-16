@@ -23,7 +23,11 @@
                 <a href="{{ url_for('home') }}"><img src="/static/images/logo.png" class = "img-responsive" width = "100%"></a>
             </div>
             <div class="col-md-6 col-lg-7 my-auto">
-                <input class="form-control mb-2 w-100" type="search" placeholder="Search your dream car" aria-label="Search">
+                <form method="POST" action="" enctype="multipart/form-data">
+                    {{searchform.hidden_tag()}}
+                    {{ searchform.text(class="form-control", placeholder="Search your dream car!") }}
+                    {{ searchform.submit(class="btn btn-outline-dark btn-block btn-sm", type="submit", style="display: none") }}
+                </form>
             </div>
             <div class="col-md-2 col-lg-2">
                 {% if current_user.is_authenticated %}

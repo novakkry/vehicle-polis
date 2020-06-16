@@ -1,8 +1,9 @@
 from flask_wtf import FlaskForm
 from flask_wtf.file import FileField, FileAllowed
-from wtforms import StringField, PasswordField, SubmitField, BooleanField, RadioField, TextAreaField, IntegerField, SelectField
+from wtforms import StringField, PasswordField, SubmitField, BooleanField, RadioField, TextAreaField, IntegerField, SelectField, DateTimeField
 from wtforms.validators import DataRequired, Length, Email, EqualTo, ValidationError, NumberRange
 from marketplace.models import User
+from datetime import datetime
 
 class RegistrationForm(FlaskForm):
     username = StringField('Username', validators=[DataRequired(), Length(min=2, max=20)])
@@ -48,7 +49,7 @@ class OrderForm(FlaskForm):
     quantity = IntegerField('Quantity', validators=[DataRequired('This field has to be a positive number and is required.')])
     first_name = StringField('First name', validators=[DataRequired(), Length(min=2, max=40)])
     last_name = StringField('Last name', validators=[DataRequired(), Length(min=2, max=60)])
-    company_name = StringField('Company name', validators=[DataRequired(), Length(min=2, max=100)])
+    company_name = StringField('Company name', validators=[Length(max=100)])
     address1 = StringField('Address 1', validators=[DataRequired(), Length(min=2, max=100)])
     address2 = StringField('Address 2')
     suburb = StringField('Suburb', validators=[DataRequired(), Length(min=2, max=100)])
@@ -57,4 +58,9 @@ class OrderForm(FlaskForm):
     country = SelectField('Country',validators=[DataRequired()], choices=[('Australia', 'Australia')])
     phone = StringField('Phone', validators=[DataRequired(), Length(min=2, max=100)])
     email = StringField('Email', validators=[DataRequired(), Length(min=2, max=100), Email()])
-    submit = SubmitField('Submit order')
+    date_posted = DateTimeField('Date and time', default=datetime.now)
+    submit = SubmitField('Next')
+
+class SearchForm(FlaskForm):
+    text = StringField('Search')
+    submit = SubmitField('Search')

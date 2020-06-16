@@ -1,22 +1,30 @@
 from flask import render_template, url_for, redirect, flash, redirect, request, abort
 from marketplace import app, db, bcrypt
-from marketplace.forms import RegistrationForm, LoginForm, PostForm, OrderForm, NumberRange
+from marketplace.forms import RegistrationForm, LoginForm, PostForm, OrderForm, NumberRange, SearchForm
 from marketplace.models import User, Post, Order
 from flask_login import login_user, current_user, logout_user, login_required
 import os
 import secrets
 
-@app.route("/")
+@app.route("/", methods=['GET','POST'])
 @app.route("/home", methods=['GET','POST'])
 def home():
+    searchform = SearchForm()
     posts = Post.query.order_by(Post.id.desc()).all()
-    posts_first = posts[:4]
+    posts_first = posts[:4] #latest 8 posts
     posts_second = posts[4:8]
     count = Post.query.count()
-    return render_template('home.html', posts_first=posts_first, posts_second=posts_second, count=count)
+    if searchform.validate_on_submit():
+        flash('You sucessfully searched something!', 'success')
+        posts = Post.query.order_by(Post.id.desc()).all()
+        searchform = SearchForm()
+        return redirect(url_for('item_list', posts=posts))
+    if request.method == 'GET':
+        return render_template('home.html', posts_first=posts_first, posts_second=posts_second, count=count, searchform=searchform)
 
 @app.route("/login", methods=['GET','POST'])
 def login():
+    searchform = SearchForm()
     if current_user.is_authenticated:
         return redirect(url_for('home'))
     form = LoginForm()
@@ -29,10 +37,11 @@ def login():
             return redirect(next_page) if next_page else redirect(url_for('home'))
         else:
             flash('Login Unsuccessful. Please check email and password', 'danger')
-    return render_template('login.html', form=form)
+    return render_template('login.html', form=form, searchform=searchform)
 
 @app.route("/register", methods=['GET','POST'])
 def register():
+    searchform = SearchForm()
     if current_user.is_authenticated:
         return redirect(url_for('home'))
     form = RegistrationForm()
@@ -43,7 +52,7 @@ def register():
         db.session.commit()
         flash('Account successfuly created.', 'success')
         return redirect(url_for('login'))
-    return render_template('register.html', title='Register', form=form)
+    return render_template('register.html', searchform=searchform, title='Register', form=form)
 
 @app.route("/logout")
 def logout():
@@ -54,8 +63,12 @@ def logout():
 @app.route("/account")
 @login_required
 def account():
+    searchform = SearchForm()
     posts = Post.query.order_by(Post.id.desc()).filter(Post.author == current_user)
-    return render_template('account.html', posts=posts)
+    orders = Order.query.order_by(Order.id.desc()).filter(Order.author == current_user)
+    posts_count = Post.query.order_by(Post.id.desc()).filter(Post.author == current_user).count()
+    orders_count = Order.query.order_by(Order.id.desc()).filter(Order.author == current_user).count()
+    return render_template('account.html', searchform=searchform, posts=posts, orders=orders, posts_count=posts_count, orders_count=orders_count)
 
 def save_picture(form_picture):
     random_hex = secrets.token_hex(8)
@@ -69,6 +82,7 @@ def save_picture(form_picture):
 @app.route("/add_item", methods=['GET','POST'])
 @login_required
 def add_item():
+    searchform = SearchForm()
     form=PostForm()
     if current_user.role == 'buyer':
         flash('Only sellers can list cars.', 'info')
@@ -84,21 +98,25 @@ def add_item():
             db.session.commit()
             flash('Your car has been added!', 'success')
             return redirect(url_for('home'))
-        return render_template('add_item.html', form=form, legend='Create a new listing')
+        return render_template('add_item.html', searchform=searchform, form=form, legend='Create a new listing')
 
 @app.route("/item_list")
 def item_list():
+    searchform = SearchForm()
+    searchform = SearchForm()
     posts = Post.query.order_by(Post.id.desc()).all()
-    return render_template('item_list.html', posts=posts)
+    return render_template('item_list.html', posts=posts, searchform=searchform)
 
 @app.route("/item_details/<int:post_id>")
 def post(post_id):
+    searchform = SearchForm()
     post = Post.query.get_or_404(post_id)
-    return render_template('item_details.html', title=post.title, post=post)
+    return render_template('item_details.html', searchform=searchform, title=post.title, post=post)
 
 @app.route("/item_details/<int:post_id>/update", methods=['GET','POST'])
 @login_required
 def update_post(post_id):
+    searchform = SearchForm()
     post = Post.query.get_or_404(post_id)
     if post.author != current_user:
         abort(403)
@@ -132,7 +150,7 @@ def update_post(post_id):
         form.transmission.data = post.transmission
         form.quantity.data = post.quantity
         form.description.data = post.description
-    return render_template('add_item.html', form=form, legend='Update listing')
+    return render_template('add_item.html', searchform=searchform, form=form, legend='Update listing')
 
 @app.route("/item_details/<int:post_id>/delete", methods=['GET','POST'])
 @login_required
@@ -148,17 +166,27 @@ def delete_post(post_id):
 @app.route("/item_details/<int:post_id>/order", methods=['GET','POST'])
 @login_required
 def order_item(post_id):
+    searchform = SearchForm()
     post = Post.query.get_or_404(post_id)
     form = OrderForm()
     maxquantity = post.quantity
     form.quantity.validators = [form.quantity.validators[0], NumberRange(min=1, max=maxquantity, message='Ordered quantity has to be no more than available quantity.')]
     if form.validate_on_submit():
-        order = Order(quantity=form.quantity.data, first_name=form.first_name.data, last_name=form.last_name.data, company_name=form.company_name.data, address1=form.address1.data, address2=form.address2.data, suburb=form.suburb.data, city=form.city.data, state=form.state.data, country=form.country.data, phone=form.phone.data, email=form.email.data, author = current_user, item = post)
+        order = Order(date_posted = form.date_posted.data, quantity=form.quantity.data, first_name=form.first_name.data, last_name=form.last_name.data, company_name=form.company_name.data, address1=form.address1.data, address2=form.address2.data, suburb=form.suburb.data, city=form.city.data, state=form.state.data, country=form.country.data, phone=form.phone.data, email=form.email.data, author = current_user, item = post)
         db.session.add(order)
         db.session.commit()
         post.quantity = post.quantity-form.quantity.data
-        flash('You sucessfully submitted an order', 'success')
-        return render_template('order_item.html', post=post, form=form)
+        db.session.commit()
+        flash('Your order has been submitted!', 'info')
+        return redirect(url_for('order_details', order_id=order.id))
     elif request.method == 'GET':
         form.email.data = current_user.email
-    return render_template('order_item.html', post=post, form=form)
+    return render_template('order_item.html', searchform=searchform, post=post, form=form)
+
+@app.route("/order_details/<int:order_id>", methods=['GET','POST'])
+def order_details(order_id):
+    searchform = SearchForm()
+    order = Order.query.order_by(Order.id.desc()).filter(Order.id == order_id).first()
+    if order.author != current_user:
+        abort(403)
+    return render_template('order_details.html', searchform=searchform, order=order)

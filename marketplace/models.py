@@ -34,7 +34,7 @@ class Post(db.Model):
     fuel = db.Column(db.String(100), nullable=False)
     transmission = db.Column(db.String(100), nullable=False)
     quantity = db.Column(db.Integer(), nullable=False)
-    date_posted = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
+    date_posted = db.Column(db.DateTime, nullable=False, default=datetime.now)
     description = db.Column(db.Text, nullable=True)
     image_file = db.Column(db.String(20), nullable=False, default='default.png')
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
@@ -57,7 +57,7 @@ class Order(db.Model):
     country = db.Column(db.String(100), nullable=False)
     phone = db.Column(db.String(100), nullable=False)
     email = db.Column(db.String(100), nullable=False)
-    date_posted = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
+    date_posted = db.Column(db.DateTime, nullable=False, default=datetime.now)
     item_id = db.Column(db.Integer, db.ForeignKey('post.id'), nullable=False)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
 

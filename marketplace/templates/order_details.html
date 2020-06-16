@@ -1,0 +1,86 @@
+{% extends "base.html" %}
+{% block content %}
+
+<h3 class="account-heading">Summary of your order</h3>
+  <!-- details about item -->
+  <div class="row border-top border-bottom mx-2">
+    <div class="card border-0">
+        <div class="card-body">
+            <div class="row">
+                <div class="col-xl-2 col-lg-2 col-xs-2 mp-2">
+                <img class="shadow img-fluid" src="{{ url_for('static', filename='images/' + order.item.image_file) }}" alt="Card image cap">
+                </div>
+                <div class="col-xl-5 col-lg-5 col-xs-5">
+                    <h6 class="card-title">{{ order.item.title }}</h6>
+                    Seller: <strong>{{ order.author.username }}</strong><br>
+                    Order date: {{ order.date_posted.strftime('%d-%m-%Y') }} <br>
+                    Order time: {{ order.date_posted.strftime("%H:%M:%S") }} <br>
+                    Order ID: {{order.id}}
+                </div>
+
+                <div class="col-xl-2 col-lg-2 col-xs-2 my-auto" align="center">
+                    Ordered quantity: <strong>{{ order.quantity }}</strong>
+                </div>
+
+                <div class="col-xl-3 col-lg-3 col-xs-3 my-auto" align="center">
+                    <h6>Unit price:<strong><h5> ${{ order.item.price }}</strong></h5></h6><br>
+                    <h6>Total price:<strong><h5> ${{ order.item.price*order.quantity }}</strong></h5></h6>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row justify-content-md">
+    <div class="col-md-auto">
+        <table class="table table-borderless">
+            <tbody>
+                <tr>
+                    <td>First name:</td>
+                    <td><strong>{{order.first_name}}</strong></td>
+                </tr>
+                <tr>
+                    <td>Last name:</td>
+                    <td><strong>{{order.last_name}}</strong></td>
+                </tr>
+                {% if order.company_name %}
+                <tr>
+                    <td>Company name:</td>
+                    <td><strong>{{order.company_name}}</strong></td>
+                </tr>
+                {% endif %}
+                <tr>
+                    <td>Address:</td>
+                    <td><strong>{{order.address2}}, {{order.address1}}</strong></td>
+                </tr>
+                <tr>
+                    <td>Suburb:</td>
+                    <td><strong>{{order.suburb}}</strong></td>
+                </tr>
+                <tr>
+                    <td>City:</td>
+                    <td><strong>{{order.city}}</strong></td>
+                </tr>
+                <tr>
+                    <td>State:</td>
+                    <td><strong>{{order.state}}</strong></td>
+                </tr>
+                <tr>
+                    <td>Country:</td>
+                    <td><strong>{{order.country}}</strong></td>
+                </tr>
+                <tr>
+                    <td>Phone:</td>
+                    <td><strong>{{order.phone}}</strong></td>
+                </tr>
+                <tr>
+                    <td>Email:</td>
+                    <td><strong>{{order.email}}</strong></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+{% endblock %}
