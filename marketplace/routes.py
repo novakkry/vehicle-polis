@@ -47,7 +47,7 @@ def register():
     form = RegistrationForm()
     if form.validate_on_submit():
         hashed_password = bcrypt.generate_password_hash(form.password.data).decode('utf-8')
-        user = User(username=form.username.data, email=form.email.data, password=hashed_password, role=form.role.data)
+        user = User(username=form.username.data, email=form.email.data, password=hashed_password, role=form.role.data, contact_number=form.contact_number.data)
         db.session.add(user)
         db.session.commit()
         flash('Account successfuly created.', 'success')
@@ -113,8 +113,13 @@ def post(post_id):
     post = Post.query.get_or_404(post_id)
     order = Order.query.order_by(Order.id.desc()).first() #ted to posila query na vsechny ordery a vubec se to nefiltruje. Zmenit!!!
     reviews = Review.query.filter(Review.item_id == post_id).order_by(Review.id.desc()).all()
-    ordered = Order.query.filter(Order.item_id == post_id, Order.user_id == current_user.id).first()
-    written = Review.query.filter(Review.user_id == current_user.id, Review.item_id == post_id).first()
+    ordered = ''
+    written = 1
+    own = ''
+    if current_user.is_authenticated:
+        ordered = Order.query.filter(Order.item_id == post_id, Order.user_id == current_user.id).first()
+        written = Review.query.filter(Review.user_id == current_user.id, Review.item_id == post_id).first()
+        own = Post.query.filter(Post.user_id == current_user.id, Post.id == post_id).first()
     if form.validate_on_submit():
         review = Review(ranking=form.ranking.data, content=form.content.data, author=current_user, item=post, order=order)
         db.session.add(review)
@@ -122,7 +127,7 @@ def post(post_id):
         reviews = Review.query.filter(Review.item_id == post_id).order_by(Review.id.desc()).all()
         flash('Your review was sucessfully posted!', 'success')
         return redirect(url_for('post', post_id=post_id))
-    return render_template('item_details.html', searchform=searchform, title=post.title, post=post, form=form, reviews=reviews, ordered=ordered, written=written)
+    return render_template('item_details.html', searchform=searchform, title=post.title, post=post, form=form, reviews=reviews, ordered=ordered, written=written, own=own)
 
 @app.route("/item_details/<int:post_id>/update", methods=['GET','POST'])
 @login_required

@@ -8,6 +8,7 @@ from datetime import datetime
 class RegistrationForm(FlaskForm):
     username = StringField('Username', validators=[DataRequired(), Length(min=2, max=20)])
     email = StringField('Email', validators=[DataRequired(), Email()])
+    contact_number = StringField('Contact number', validators=[DataRequired(), Length(min=2, max=20)])
     password = PasswordField('Password', validators=[DataRequired()])
     confirm_password = PasswordField('Confirm Password', validators=[DataRequired(), EqualTo('password')])
     role = RadioField('I want to', choices=[('buyer','buy only (buyer)'),('seller','buy and sell (seller)')], default='buyer')

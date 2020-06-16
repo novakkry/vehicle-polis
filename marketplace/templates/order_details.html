@@ -11,7 +11,7 @@
                 <img class="shadow img-fluid" src="{{ url_for('static', filename='images/' + order.item.image_file) }}" alt="Card image cap">
                 </div>
                 <div class="col-xl-5 col-lg-5 col-xs-5">
-                    <h6 class="card-title">{{ order.item.title }}</h6>
+                    <h6 class="card-title"><a href="{{ url_for('post', post_id=order.item_id) }}">{{ order.item.title }}</a></h6>
                     Seller: <strong>{{ order.author.username }}</strong><br>
                     Order date: {{ order.date_posted.strftime('%d-%m-%Y') }} <br>
                     Order time: {{ order.date_posted.strftime("%H:%M:%S") }} <br>
