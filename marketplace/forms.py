@@ -59,8 +59,13 @@ class OrderForm(FlaskForm):
     phone = StringField('Phone', validators=[DataRequired(), Length(min=2, max=100)])
     email = StringField('Email', validators=[DataRequired(), Length(min=2, max=100), Email()])
     date_posted = DateTimeField('Date and time', default=datetime.now)
-    submit = SubmitField('Next')
+    submit = SubmitField('Submit order')
 
 class SearchForm(FlaskForm):
     text = StringField('Search')
     submit = SubmitField('Search')
+
+class ReviewForm(FlaskForm):
+    ranking = SelectField('Rate it',validators=[DataRequired()], choices=[('★★★★★', '★★★★★'),('★★★★☆', '★★★★☆'),('★★★☆☆', '★★★☆☆'),('★★☆☆☆', '★★☆☆☆'),('★☆☆☆☆', '★☆☆☆☆')])
+    content = TextAreaField('Description')
+    submit = SubmitField('Post review')

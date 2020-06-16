@@ -17,6 +17,7 @@ class User(db.Model, UserMixin):
     role = db.Column(db.String(10), unique=False, nullable=False) #not sure about this one, gotta figure out
     posts = db.relationship('Post', backref='author', lazy=True)
     orders = db.relationship('Order', backref='author', lazy=True)
+    reviews = db.relationship('Review', backref='author', lazy=True)
 
     def __repr__(self):
         return f"User('{self.username}', '{self.email}')"
@@ -39,6 +40,7 @@ class Post(db.Model):
     image_file = db.Column(db.String(20), nullable=False, default='default.png')
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
     orders = db.relationship('Order', backref='item', lazy=True)
+    reviews = db.relationship('Review', backref='item', lazy=True)
 
     def __repr__(self):
         return f"Post('{self.title}', '{self.date_posted}')"
@@ -60,6 +62,19 @@ class Order(db.Model):
     date_posted = db.Column(db.DateTime, nullable=False, default=datetime.now)
     item_id = db.Column(db.Integer, db.ForeignKey('post.id'), nullable=False)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+    reviews = db.relationship('Review', backref='order', lazy=True)
 
     def __repr__(self):
-        return f"Post('{self.id}', '{self.item_id.title}', '{self.date_posted}')"
+        return f"Order('{self.id}', '{self.item_id}', '{self.date_posted}')"
+
+class Review(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    ranking = db.Column(db.String(50), nullable=False)
+    content = db.Column(db.Text, nullable=False)
+    date_posted = db.Column(db.DateTime, nullable=False, default=datetime.now)
+    item_id = db.Column(db.Integer, db.ForeignKey('post.id'), nullable=False)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+    order_id = db.Column(db.Integer, db.ForeignKey('order.id'), nullable=False)
+
+    def __repr__(self):
+        return f"Review('{self.id}', '{self.ranking}', '{self.date_posted}')"

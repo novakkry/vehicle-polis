@@ -49,7 +49,7 @@
     {% for order in orders %}
       <tr>
         <td>{{order.id}}</td>
-        <td> <a href="{{ url_for('order_details', order_id=order.id) }}"> {{order.item.year}} {{order.item.make}} {{order.item.model}}</a></td>
+        <td> <a href="{{ url_for('post', post_id=order.item.id) }}"> {{order.item.year}} {{order.item.make}} {{order.item.model}}</a></td>
         <td>{{ order.date_posted.strftime('%d-%m-%Y %H:%M:%S') }}</td>
         <td><a href="{{ url_for('order_details', order_id=order.id) }}">View</a></td>
       </tr>

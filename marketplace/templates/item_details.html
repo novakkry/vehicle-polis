@@ -56,42 +56,48 @@
   <div class="col-md-9 pl-4">
     <!-- review section -->
     <div>
-      <div class="ml-2 mt-5">
-        Reviews of 2017 Skoda Superb
+      <div class="ml-2 mt-4">
+        Reviews of <strong>{{ post.year }} {{ post.make }} {{ post.model }}</strong>
       </div>
-      <!-- border around all the reviews-->
-      <div class="border">
-        <!-- start of ndividual review -->
-        <div class="d-flex p-2 bd-highlight">
-          <div>
-            ★★★☆☆<br>User: James_Bond<br>Date: June 2020
-          </div>
-        </div>
+      {% if (current_user.is_authenticated and ordered and not written) %}
+      <div class="m-2 mt-2">
+        <small>Post your review</small>
+        <form method="POST" action="">
+          {{form.hidden_tag()}}
+            <div class="form-group">
 
-        <div class="mx-2">
-          <p>I have had this car for 7 years now. Purchased new, used daily coming up to 185000 km. It always runs great with excellent fuel economy. Comfortable to drive, reliable and lots of great features. Will definitely buy another one when I am ready for a new car in a few more years!!</p>
-          <hr>
-        </div>
-        <!-- end of single review -->
-      </div>
-
-      <div class="m-2 mt-4">
-        Post a review of <strong>2017 Skoda Superb</strong>
-        <div class="mb-2">
-          <select class="form-control form-control-sm">
-            <option>Vehicle rating</option>
-            <option>★★★★★</option>
-            <option>★★★★☆</option>
-            <option>★★★☆☆</option>
-            <option>★★☆☆☆</option>
-            <option>★☆☆☆☆</option>
-          </select>
-        </div>
+              {{ form.ranking }}
+            </div>
+        
         <div class="form-group">
-          <textarea class="form-control" rows="5" id="comment"></textarea>
+          {{ form.content(class="form-control") }}
         </div>
-        <button type="button" class="btn btn-outline-dark btn-sm">Submit review</button>
+        {{ form.submit }}
+      </form>
       </div>
+      {% endif %}
+    
+            <!-- border around all the reviews-->
+            <div class="border">
+              <!-- start of individual review -->
+              {% for review in reviews %}
+              <div class="d-flex p-2 bd-highlight">
+                <div>
+                  {{review.ranking}}<br>User: {{review.author.username}}<br>Date: {{ review.date_posted.strftime('%d-%m-%Y') }}
+                </div>
+              </div>
+      
+              <div class="mx-2">
+                <p>
+                  {{review.content}}
+                </p>
+                <hr>
+              </div>
+              <!-- end of single review -->
+              {% endfor %}
+            </div>
+            <!-- end of border around all the reviews -->
+            
     </div>
     <!-- end of review section -->
   </div>
