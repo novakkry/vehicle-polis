@@ -52,19 +52,21 @@ def home():
             posts_fuel = Post.query.filter(Post.fuel == categorysearchform.fuel.data).all()
             posts = set(posts).intersection(set(posts_fuel))
 
+        if categorysearchform.condition.data:
+            posts_condition = Post.query.filter(Post.condition.in_(categorysearchform.condition.data)).all()
+            posts = set(posts).intersection(set(posts_condition))
+
+        if categorysearchform.make.data:
+            posts_make = Post.query.filter(Post.make.in_(categorysearchform.make.data)).all()
+            posts = set(posts).intersection(set(posts_make))
+
     #*********************************finish cars filtering*********************************************
 
         if not posts:
             flash('There are no vehicles meeting your criteria. Sorry.', 'info')
             return render_template('home.html', posts_first=posts_first, posts_second=posts_second, count=count, searchform=searchform, categorysearchform=categorysearchform)
-
-        return render_template('item_list.html', posts=posts, searchform=searchform)
         
-
-    # if searchform.validate_on_submit():
-    #     flash('Full text search form engaged', 'success')
-    #     posts = Post.query.order_by(Post.id.desc()).all()
-    #     return redirect(url_for('item_list'))
+        return render_template('item_list.html', posts=posts, searchform=searchform)
     
     return render_template('home.html', posts_first=posts_first, posts_second=posts_second, count=count, searchform=searchform, categorysearchform=categorysearchform)
 

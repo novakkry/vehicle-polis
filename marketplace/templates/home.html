@@ -1,19 +1,30 @@
 {% extends "base.html" %}
 {% block content %}
 
+{% set condition = [] %}
+{% for check in categorysearchform.condition %}
+  {{condition.append(check) if condition.append(check) }}
+{% endfor %}
+
+{% set make = [] %}
+{% for single_make in categorysearchform.make %}
+  {{make.append(single_make) if make.append(single_make) }}
+{% endfor %}
+
+<form method="POST" action="">
+  {{categorysearchform.hidden_tag()}}
+  <fieldset class="form-group">
+
 <div class="row">
   <div class="col-lg-4 align-center ml-4">
     <div class="form-check form-check-inline">
-      <input class="form-check-input" type="checkbox" id="inlineCheckbox1" value="option1">
-      <label class="form-check-label" for="inlineCheckbox1">New</label>
+      {{ condition[0] }} <div class="ml-1">New</div>
     </div>
     <div class="form-check form-check-inline">
-      <input class="form-check-input" type="checkbox" id="inlineCheckbox2" value="option2">
-      <label class="form-check-label" for="inlineCheckbox2">Used</label>
+      {{ condition[1] }} <div class="ml-1">Used</div>
     </div>
     <div class="form-check form-check-inline">
-      <input class="form-check-input" type="checkbox" id="inlineCheckbox3" value="pt pl-5">
-      <label class="form-check-label" for="inlineCheckbox3">Salvaged</label>
+      {{ condition[2] }} <div class="ml-1">Salvaged</div>
     </div>
   </div>
   <div class="col text-right">
@@ -24,135 +35,131 @@
 <!-- car makes -->
 <div class="row pt-4 m-3">
   <div class="col-lg-3 col-md-4 col-sm-5 col-xs-12 pl-5 mb-4">
-      <input class="form-check-input" type="checkbox" id="inlineCheckbox3" value="option3">
+      {{ make[0] }}
       <img src="static/images/brands/alfa.png">
       <label class="form-check-label" for="inlineCheckbox3">Alfa Romeo</label>
   </div>
   <div class="col-lg-3 col-md-4 col-sm-5 col-xs-12 pl-5 mb-4">
-      <input class="form-check-input" type="checkbox" id="inlineCheckbox3" value="option3">
+      {{ make[1] }}
       <img src="static/images/brands/audi.png">
       <label class="form-check-label" for="inlineCheckbox3">Audi</label>
   </div>
   <div class="col-lg-3 col-md-4 col-sm-5 col-xs-12 pl-5 mb-4">
-      <input class="form-check-input" type="checkbox" id="inlineCheckbox3" value="option3">
+    {{ make[2] }}
       <img src="static/images/brands/BMW.png">
       <label class="form-check-label" for="inlineCheckbox3">BMW</label>
   </div>
   <div class="col-lg-3 col-md-4 col-sm-5 col-xs-12 pl-5 mb-4">
-      <input class="form-check-input" type="checkbox" id="inlineCheckbox3" value="option3">
-      <img src="static/images/brands/chevrolet.png">
+  {{ make[3] }}
+    <img src="static/images/brands/chevrolet.png">
       <label class="form-check-label" for="inlineCheckbox3">Chevrolete</label>
   </div>
   <div class="col-lg-3 col-md-4 col-sm-5 col-xs-12 pl-5 mb-4">
-      <input class="form-check-input" type="checkbox" id="inlineCheckbox3" value="option3">
+  {{ make[4] }}
       <img src="static/images/brands/citroen.png">
       <label class="form-check-label" for="inlineCheckbox3">Citroen</label>
   </div>
   <div class="col-lg-3 col-md-4 col-sm-5 col-xs-12 pl-5 mb-4">
-      <input class="form-check-input" type="checkbox" id="inlineCheckbox3" value="option3">
+  {{ make[5] }}
       <img src="static/images/brands/fiat.png">
       <label class="form-check-label" for="inlineCheckbox3">Fiat</label>
   </div>
   <div class="col-lg-3 col-md-4 col-sm-5 col-xs-12 pl-5 mb-4">
-      <input class="form-check-input" type="checkbox" id="inlineCheckbox3" value="option3">
+  {{ make[6] }}
       <img src="static/images/brands/ford.png">
       <label class="form-check-label" for="inlineCheckbox3">Ford</label>
   </div>
   <div class="col-lg-3 col-md-4 col-sm-5 col-xs-12 pl-5 mb-4">
-      <input class="form-check-input" type="checkbox" id="inlineCheckbox3" value="option3">
+  {{ make[7] }}
       <img src="static/images/brands/honda.png">
       <label class="form-check-label" for="inlineCheckbox3">Honda</label>
   </div>
   <div class="col-lg-3 col-md-4 col-sm-5 col-xs-12 pl-5 mb-4">
-      <input class="form-check-input" type="checkbox" id="inlineCheckbox3" value="option3">
+  {{ make[8] }}
       <img src="static/images/brands/hyundai.png">
       <label class="form-check-label" for="inlineCheckbox3">Hyundai</label>
   </div>
   <div class="col-lg-3 col-md-4 col-sm-5 col-xs-12 pl-5 mb-4">
-      <input class="form-check-input" type="checkbox" id="inlineCheckbox3" value="option3">
+  {{ make[9] }}
       <img src="static/images/brands/kia.png">
       <label class="form-check-label" for="inlineCheckbox3">Kia</label>
   </div>
   <div class="col-lg-3 col-md-4 col-sm-5 col-xs-12 pl-5 mb-4">
-      <input class="form-check-input" type="checkbox" id="inlineCheckbox3" value="option3">
+  {{ make[10] }}
       <img src="static/images/brands/mazda.png">
       <label class="form-check-label" for="inlineCheckbox3">Mazda</label>
   </div>
 
   <div class="col-lg-3 col-md-4 col-sm-5 col-xs-12 pl-5 mb-4">
-      <input class="form-check-input" type="checkbox" id="inlineCheckbox3" value="option3">
+  {{ make[11] }}
       <img src="static/images/brands/mercedes.png">
       <label class="form-check-label" for="inlineCheckbox3">Mercedes</label>
   </div>
   <div class="col-lg-3 col-md-4 col-sm-5 col-xs-12 pl-5 mb-4">
-      <input class="form-check-input" type="checkbox" id="inlineCheckbox3" value="option3">
+  {{ make[12] }}
       <img src="static/images/brands/mitsubishi.png">
       <label class="form-check-label" for="inlineCheckbox3">Mitsubishi</label>
   </div>
   <div class="col-lg-3 col-md-4 col-sm-5 col-xs-12 pl-5 mb-4">
-      <input class="form-check-input" type="checkbox" id="inlineCheckbox3" value="option3">
+  {{ make[13] }}
       <img src="static/images/brands/nissan.png">
       <label class="form-check-label" for="inlineCheckbox3">Nissan</label>
   </div>
   <div class="col-lg-3 col-md-4 col-sm-5 col-xs-12 pl-5 mb-4">
-      <input class="form-check-input" type="checkbox" id="inlineCheckbox3" value="option3">
+  {{ make[14] }}
       <img src="static/images/brands/opel.png">
       <label class="form-check-label" for="inlineCheckbox3">Opel</label>
   </div>
   <div class="col-lg-3 col-md-4 col-sm-5 col-xs-12 pl-5 mb-4">
-      <input class="form-check-input" type="checkbox" id="inlineCheckbox3" value="option3">
+  {{ make[15] }}
       <img src="static/images/brands/peugeot.png">
       <label class="form-check-label" for="inlineCheckbox3">Peugeot</label>
   </div>
   <div class="col-lg-3 col-md-4 col-sm-5 col-xs-12 pl-5 mb-4">
-      <input class="form-check-input" type="checkbox" id="inlineCheckbox3" value="option3">
+  {{ make[16] }}
       <img src="static/images/brands/renault.png">
       <label class="form-check-label" for="inlineCheckbox3">Renault</label>
   </div>
   <div class="col-lg-3 col-md-4 col-sm-5 col-xs-12 pl-5 mb-4">
-      <input class="form-check-input" type="checkbox" id="inlineCheckbox3" value="option3">
+  {{ make[17] }}
       <img src="static/images/brands/seat.png">
       <label class="form-check-label" for="inlineCheckbox3">Seat</label>
   </div>
   <div class="col-lg-3 col-md-4 col-sm-5 col-xs-12 pl-5 mb-4">
-      <input class="form-check-input" type="checkbox" id="inlineCheckbox3" value="option3">
+  {{ make[18] }}
       <img src="static/images/brands/skoda.png">
       <label class="form-check-label" for="inlineCheckbox3">Skoda</label>
   </div>
 
   <div class="col-lg-3 col-md-4 col-sm-5 col-xs-12 pl-5 mb-4">
-      <input class="form-check-input" type="checkbox" id="inlineCheckbox3" value="option3">
+  {{ make[19] }}
       <img src="static/images/brands/subaru.png">
       <label class="form-check-label" for="inlineCheckbox3">Subaru</label>
   </div>
   <div class="col-lg-3 col-md-4 col-sm-5 col-xs-12 pl-5 mb-4">
-      <input class="form-check-input" type="checkbox" id="inlineCheckbox3" value="option3">
+  {{ make[20] }}
       <img src="static/images/brands/suzuki.png">
       <label class="form-check-label" for="inlineCheckbox3">Suzuki</label>
   </div>
   <div class="col-lg-3 col-md-4 col-sm-5 col-xs-12 pl-5 mb-4">
-      <input class="form-check-input" type="checkbox" id="inlineCheckbox3" value="option3">
+  {{ make[21] }}
       <img src="static/images/brands/toyota.png">
       <label class="form-check-label" for="inlineCheckbox3">Toyota</label>
   </div>
   <div class="col-lg-3 col-md-4 col-sm-5 col-xs-12 pl-5 mb-4">
-      <input class="form-check-input" type="checkbox" id="inlineCheckbox3" value="option3">
+  {{ make[22] }}
       <img src="static/images/brands/volkswagen.png">
       <label class="form-check-label" for="inlineCheckbox3">Volkswagen</label>
   </div>
   <div class="col-lg-3 col-md-4 col-sm-5 col-xs-12 pl-5 mb-4">
-      <input class="form-check-input" type="checkbox" id="inlineCheckbox3" value="option3">
+  {{ make[23] }}
       <img src="static/images/brands/volvo.png">
       <label class="form-check-label" for="inlineCheckbox3">Volvo</label>
   </div>
 </div>
 
 <!-- parameters (categories) -->
-<form method="POST" action="">
-  {{categorysearchform.hidden_tag()}}
-  <fieldset class="form-group">
     <div class="row mt-3 mb-2">
-
       <div class="col-sm-4">
         <!-- price from -->
         <div class="form-group">
