@@ -1,6 +1,6 @@
 from flask import render_template, url_for, redirect, flash, redirect, request, abort
 from marketplace import app, db, bcrypt
-from marketplace.forms import RegistrationForm, LoginForm, PostForm, OrderForm, NumberRange, SearchForm, ReviewForm
+from marketplace.forms import RegistrationForm, LoginForm, PostForm, OrderForm, NumberRange, SearchForm, ReviewForm, HomeSearchForm
 from marketplace.models import User, Post, Order, Review
 from flask_login import login_user, current_user, logout_user, login_required
 import os
@@ -10,17 +10,63 @@ import secrets
 @app.route("/home", methods=['GET','POST'])
 def home():
     searchform = SearchForm()
+    categorysearchform = HomeSearchForm()
     posts = Post.query.order_by(Post.id.desc()).all()
     posts_first = posts[:4] #latest 8 posts
     posts_second = posts[4:8]
     count = Post.query.count()
-    if searchform.validate_on_submit():
-        flash('You sucessfully searched something!', 'success')
+    if categorysearchform.validate_on_submit():
+        price_to = 99999999999999
+        year_from = 0
+        year_to = 9999999
+        odo_from = 0
+        odo_to = 99999999999999
+        if not categorysearchform.price_from.data:
+            categorysearchform.price_from.data = 0
+        if not categorysearchform.price_to.data:
+            categorysearchform.price_to.data = 99999999999999
+        if not categorysearchform.year_from.data:
+            categorysearchform.year_from.data = 0
+        if not categorysearchform.year_to.data:
+            categorysearchform.year_to.data = 99999999999999
+        if not categorysearchform.odo_from.data:
+            categorysearchform.odo_from.data = 0
+        if not categorysearchform.odo_to.data:
+            categorysearchform.odo_to.data = 99999999999999
+
         posts = Post.query.order_by(Post.id.desc()).all()
-        searchform = SearchForm()
-        return redirect(url_for('item_list', posts=posts))
-    if request.method == 'GET':
-        return render_template('home.html', posts_first=posts_first, posts_second=posts_second, count=count, searchform=searchform)
+        posts = Post.query.filter(Post.price >= categorysearchform.price_from.data, Post.price <= categorysearchform.price_to.data,\
+        Post.year >= categorysearchform.year_from.data, Post.year <= categorysearchform.year_to.data,\
+        Post.ODO >= categorysearchform.odo_from.data, Post.ODO <= categorysearchform.odo_to.data\
+        ).order_by(Post.id.desc()).all()
+        
+        if categorysearchform.transmission.data:
+            posts_transmission = Post.query.filter(Post.transmission == categorysearchform.transmission.data).all()
+            posts = set(posts).intersection(set(posts_transmission))
+        
+        if categorysearchform.category.data:
+            posts_category = Post.query.filter(Post.category == categorysearchform.category.data).all()
+            posts = set(posts).intersection(set(posts_category))
+        
+        if categorysearchform.fuel.data:
+            posts_fuel = Post.query.filter(Post.fuel == categorysearchform.fuel.data).all()
+            posts = set(posts).intersection(set(posts_fuel))
+
+    #*********************************finish cars filtering*********************************************
+
+        if not posts:
+            flash('There are no vehicles meeting your criteria. Sorry.', 'info')
+            return render_template('home.html', posts_first=posts_first, posts_second=posts_second, count=count, searchform=searchform, categorysearchform=categorysearchform)
+
+        return render_template('item_list.html', posts=posts, searchform=searchform)
+        
+
+    # if searchform.validate_on_submit():
+    #     flash('Full text search form engaged', 'success')
+    #     posts = Post.query.order_by(Post.id.desc()).all()
+    #     return redirect(url_for('item_list'))
+    
+    return render_template('home.html', posts_first=posts_first, posts_second=posts_second, count=count, searchform=searchform, categorysearchform=categorysearchform)
 
 @app.route("/login", methods=['GET','POST'])
 def login():

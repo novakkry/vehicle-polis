@@ -148,42 +148,119 @@
 </div>
 
 <!-- parameters (categories) -->
-<div class="row mt-3 mb-2">
-  <div class="col-sm-4">
-    <input class="form-control mb-2" type="text" placeholder="Price from (AUD)">
-    <input class="form-control mb-2" type="text" placeholder="Price to (AUD)">
-  </div>
-  <div class="col-sm-4">
-    <input class="form-control mb-2" type="text" placeholder="Year from">
-    <input class="form-control mb-2" type="text" placeholder="Odometer max (km)">
-  </div>
-  <div class="col-sm-4">
-    <select class="form-control mb-2">
-      <option>Fuel type</option>
-      <option>Gas</option>
-      <option>Diesel</option>
-      <option>Electric</option>
-    </select>
-    <select class="form-control mb-2">
-      <option>Body type</option>
-      <option>Hatchback</option>
-      <option>Sedan</option>
-      <option>MUV/SUV</option>
-      <option>Coupe</option>
-      <option>Convertible</option>
-      <option>Wagon</option>
-      <option>Van</option>
-      <option>Sport</option>
-    </select>
-  </div>
-</div>
+<form method="POST" action="">
+  {{categorysearchform.hidden_tag()}}
+  <fieldset class="form-group">
+    <div class="row mt-3 mb-2">
 
-<!-- View button -->
-<div class="row">
-  <div class="col-lg-4 offset-lg-4">
-    <a href="{{url_for('item_list')}}"><button type="button" class="btn btn-outline-dark btn-block btn-lg mt-2">Show vehicles</button></a>
+      <div class="col-sm-4">
+        <!-- price from -->
+        <div class="form-group">
+          {% if categorysearchform.price_from.errors %}
+              {{ categorysearchform.price_from(class="form-control is-invalid") }}
+              <div class="invalid-feedback">
+                  {% for error in categorysearchform.price_from.errors %}
+                      <span>{{ error }}</span>
+                  {% endfor %}
+              </div>
+          {% else %}
+              {{ categorysearchform.price_from(class="form-control", placeholder="Price from ($AUD)") }}
+          {% endif %}
+        </div>
+        <!-- price to -->
+        <div class="form-group">
+          {% if categorysearchform.price_to.errors %}
+              {{ categorysearchform.price_to(class="form-control is-invalid") }}
+              <div class="invalid-feedback">
+                  {% for error in categorysearchform.price_to.errors %}
+                      <span>{{ error }}</span>
+                  {% endfor %}
+              </div>
+          {% else %}
+              {{ categorysearchform.price_to(class="form-control", placeholder="Price to ($AUD)") }}
+          {% endif %}
+        </div>
+        <!-- category -->
+        <div class="form-group">
+          {{ categorysearchform.category }}
+        </div>
+      </div>
+
+      <div class="col-sm-4">
+        <!-- year from -->
+        <div class="form-group">
+          {% if categorysearchform.year_from.errors %}
+              {{ categorysearchform.year_from(class="form-control is-invalid") }}
+              <div class="invalid-feedback">
+                  {% for error in categorysearchform.year_from.errors %}
+                      <span>{{ error }}</span>
+                  {% endfor %}
+              </div>
+          {% else %}
+              {{ categorysearchform.year_from(class="form-control", placeholder="Year from") }}
+          {% endif %}
+        </div>
+        <!-- year to -->
+        <div class="form-group">
+          {% if categorysearchform.year_to.errors %}
+              {{ categorysearchform.year_to(class="form-control is-invalid") }}
+              <div class="invalid-feedback">
+                  {% for error in categorysearchform.year_to.errors %}
+                      <span>{{ error }}</span>
+                  {% endfor %}
+              </div>
+          {% else %}
+              {{ categorysearchform.year_to(class="form-control", placeholder="Year to") }}
+          {% endif %}
+        </div>
+        <!-- transmission -->
+        <div class="form-group">
+          {{ categorysearchform.transmission }}
+        </div>
+      </div>
+
+      <div class="col-sm-4">
+        <!-- odo from -->
+        <div class="form-group">
+          {% if categorysearchform.odo_from.errors %}
+              {{ categorysearchform.odo_from(class="form-control is-invalid") }}
+              <div class="invalid-feedback">
+                  {% for error in categorysearchform.odo_from.errors %}
+                      <span>{{ error }}</span>
+                  {% endfor %}
+              </div>
+          {% else %}
+              {{ categorysearchform.odo_from(class="form-control", placeholder="ODO min (km)") }}
+          {% endif %}
+        </div>
+        <!-- odo to -->
+        <div class="form-group">
+          {% if categorysearchform.odo_to.errors %}
+              {{ categorysearchform.odo_to(class="form-control is-invalid") }}
+              <div class="invalid-feedback">
+                  {% for error in categorysearchform.odo_to.errors %}
+                      <span>{{ error }}</span>
+                  {% endfor %}
+              </div>
+          {% else %}
+              {{ categorysearchform.odo_to(class="form-control", placeholder="ODO max (km)") }}
+          {% endif %}
+        </div>
+        <!-- fuel -->
+        <div class="form-group">
+          {{ categorysearchform.fuel }}
+        </div>
+      </div>
+
+    </div>
+  </fieldset>
+  <!-- search button -->
+  <div class="row">
+    <div class="col-lg-4 offset-lg-4">
+      {{ categorysearchform.submit2(class="btn btn-outline-dark btn-block btn-lg mt-2") }}
+    </div>
   </div>
-</div>
+</form>
 
 <!-- start of carousel (slideshow) -->
 <p class="text-left text-secondary mb-n2"><sub>Latest</sub></p>

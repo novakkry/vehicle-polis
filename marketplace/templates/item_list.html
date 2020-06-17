@@ -130,6 +130,7 @@
     <!-- column with listed cars-->
     <div class="col-md-9">
       <a href="{{ url_for('add_item') }}" class="m-4"> +List a new vehicle</a>
+      <p class="text-right mt-n3"><small>Ordered by date posted</small></p>
 
       <!-- start of individual listing -->
       {% for post in posts %}

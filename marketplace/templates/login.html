@@ -5,6 +5,7 @@
 <form method="POST" action="">
     {{form.hidden_tag()}}
     <fieldset class="form-group">
+        
         <div class="form-group">
             {% if form.email.errors %}
                 {{ form.email(class="form-control is-invalid") }}
@@ -17,6 +18,7 @@
                 {{ form.email(class="form-control", placeholder="Email") }}
             {% endif %}
         </div>
+
         <div class="form-group">
             {% if form.password.errors %}
                 {{ form.password(class="form-control is-invalid") }}
