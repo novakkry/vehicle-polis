@@ -3,6 +3,7 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_bcrypt import Bcrypt
 from flask_login import LoginManager
 from marketplace.config import Config
+import os
 
 db = SQLAlchemy()
 bcrypt = Bcrypt()
@@ -15,6 +16,7 @@ def create_app(config_class=Config):
 
     app = Flask(__name__)
     app.config.from_object(Config)
+    app.config.from_mapping(SQLALCHEMY_DATABASE_URI = os.environ['HEROKU_POSTGRESQL_COBALT_URL']) #maybe should be DATABASE_URL
 
     with app.app_context():
         db.init_app(app)
