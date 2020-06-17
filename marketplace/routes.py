@@ -1,13 +1,13 @@
-from flask import render_template, url_for, redirect, flash, redirect, request, abort
-from marketplace import app, db, bcrypt
+from flask import render_template, url_for, redirect, flash, redirect, request, abort, current_app
+from marketplace import db, bcrypt
 from marketplace.forms import RegistrationForm, LoginForm, PostForm, OrderForm, NumberRange, SearchForm, ReviewForm, HomeSearchForm
 from marketplace.models import User, Post, Order, Review
 from flask_login import login_user, current_user, logout_user, login_required
 import os
 import secrets
 
-@app.route("/", methods=['GET','POST'])
-@app.route("/home", methods=['GET','POST'])
+@current_app.route("/", methods=['GET','POST'])
+@current_app.route("/home", methods=['GET','POST'])
 def home():
     searchform = SearchForm()
     categorysearchform = HomeSearchForm()
@@ -70,7 +70,7 @@ def home():
     
     return render_template('home.html', posts_first=posts_first, posts_second=posts_second, count=count, searchform=searchform, categorysearchform=categorysearchform)
 
-@app.route("/login", methods=['GET','POST'])
+@current_app.route("/login", methods=['GET','POST'])
 def login():
     searchform = SearchForm()
     if current_user.is_authenticated:
@@ -87,7 +87,7 @@ def login():
             flash('Login Unsuccessful. Please check email and password', 'danger')
     return render_template('login.html', form=form, searchform=searchform)
 
-@app.route("/register", methods=['GET','POST'])
+@current_app.route("/register", methods=['GET','POST'])
 def register():
     searchform = SearchForm()
     if current_user.is_authenticated:
@@ -102,13 +102,13 @@ def register():
         return redirect(url_for('login'))
     return render_template('register.html', searchform=searchform, title='Register', form=form)
 
-@app.route("/logout")
+@current_app.route("/logout")
 def logout():
     logout_user()
     flash('You have been logged out.', 'info')
     return redirect(url_for('home'))
 
-@app.route("/account")
+@current_app.route("/account")
 @login_required
 def account():
     searchform = SearchForm()
@@ -122,12 +122,12 @@ def save_picture(form_picture):
     random_hex = secrets.token_hex(8)
     _, f_ext = os.path.splitext(form_picture.filename)
     picture_fn = random_hex + f_ext
-    picture_path = os.path.join(app.root_path, 'static/images', picture_fn)
+    picture_path = os.path.join(current_app.root_path, 'static/images', picture_fn)
     form_picture.save(picture_path)
 
     return picture_fn
 
-@app.route("/add_item", methods=['GET','POST'])
+@current_app.route("/add_item", methods=['GET','POST'])
 @login_required
 def add_item():
     searchform = SearchForm()
@@ -148,13 +148,13 @@ def add_item():
             return redirect(url_for('home'))
         return render_template('add_item.html', searchform=searchform, form=form, legend='Create a new listing')
 
-@app.route("/item_list")
+@current_app.route("/item_list")
 def item_list():
     searchform = SearchForm()
     posts = Post.query.order_by(Post.id.desc()).all()
     return render_template('item_list.html', posts=posts, searchform=searchform)
 
-@app.route("/item_details/<int:post_id>", methods=['GET','POST'])
+@current_app.route("/item_details/<int:post_id>", methods=['GET','POST'])
 def post(post_id):
     searchform = SearchForm()
     form = ReviewForm()
@@ -177,7 +177,7 @@ def post(post_id):
         return redirect(url_for('post', post_id=post_id))
     return render_template('item_details.html', searchform=searchform, title=post.title, post=post, form=form, reviews=reviews, ordered=ordered, written=written, own=own)
 
-@app.route("/item_details/<int:post_id>/update", methods=['GET','POST'])
+@current_app.route("/item_details/<int:post_id>/update", methods=['GET','POST'])
 @login_required
 def update_post(post_id):
     searchform = SearchForm()
@@ -216,7 +216,7 @@ def update_post(post_id):
         form.description.data = post.description
     return render_template('add_item.html', searchform=searchform, form=form, legend='Update listing')
 
-@app.route("/item_details/<int:post_id>/delete", methods=['GET','POST'])
+@current_app.route("/item_details/<int:post_id>/delete", methods=['GET','POST'])
 @login_required
 def delete_post(post_id):
     post = Post.query.get_or_404(post_id)
@@ -227,7 +227,7 @@ def delete_post(post_id):
     flash('Your listing has been deleted!', 'info')
     return redirect(url_for('home'))
 
-@app.route("/item_details/<int:post_id>/order", methods=['GET','POST'])
+@current_app.route("/item_details/<int:post_id>/order", methods=['GET','POST'])
 @login_required
 def order_item(post_id):
     searchform = SearchForm()
@@ -247,7 +247,7 @@ def order_item(post_id):
         form.email.data = current_user.email
     return render_template('order_item.html', searchform=searchform, post=post, form=form)
 
-@app.route("/order_details/<int:order_id>", methods=['GET','POST'])
+@current_app.route("/order_details/<int:order_id>", methods=['GET','POST'])
 def order_details(order_id):
     searchform = SearchForm()
     order = Order.query.order_by(Order.id.desc()).filter(Order.id == order_id).first()
