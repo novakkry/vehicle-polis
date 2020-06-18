@@ -34,7 +34,7 @@
     <div class="form-group">
       {{ form.make.label }}<font color="red">*</font>
       <br>
-      {{ form.make(class="btn btn-outline-dark btn-block") }}
+      {{ form.make(class="form-control") }}
     </div>
     <!-- model -->
     <div class="form-group">
@@ -96,19 +96,19 @@
     <div class="form-group">
       {{ form.category.label(class="form-control-label") }}<font color="red">*</font>
       <br>
-      {{ form.category }}
+      {{ form.category(class="form-control") }}
     </div>
     <!-- fuel -->
     <div class="form-group">
       {{ form.fuel.label(class="form-control-label") }}<font color="red">*</font>
       <br>
-      {{ form.fuel }}
+      {{ form.fuel(class="form-control") }}
     </div>
     <!-- transmission -->
     <div class="form-group">
       {{ form.transmission.label(class="form-control-label") }}<font color="red">*</font>
       <br>
-      {{ form.transmission }}
+      {{ form.transmission(class="form-control") }}
     </div>
     <!-- quantity -->
     <div class="form-group">

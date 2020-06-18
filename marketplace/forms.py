@@ -1,7 +1,7 @@
 from flask_wtf import FlaskForm
 from flask_wtf.file import FileField, FileAllowed
 from wtforms import StringField, PasswordField, SubmitField, BooleanField, RadioField, TextAreaField, IntegerField, SelectField, DateTimeField,validators, SelectMultipleField, widgets
-from wtforms.validators import DataRequired, Length, Email, EqualTo, ValidationError, NumberRange
+from wtforms.validators import DataRequired, Length, Email, EqualTo, ValidationError, NumberRange, InputRequired
 from marketplace.models import User
 from datetime import datetime
 
@@ -35,13 +35,13 @@ class PostForm(FlaskForm):
     title = StringField('Title of your ad', validators=[DataRequired(), Length(min=3, max=40)])
     make = SelectField('Make',validators=[DataRequired()], choices=[('', 'Select car make'),('Alfa Romeo', 'Alfa Romeo'), ('Audi', 'Audi'), ('BMW', 'BMW'), ('Chevrolete', 'Chevrolet'), ('Citroen', 'Citroen'), ('Fiat', 'Fiat'), ('Ford', 'Ford'), ('Honda', 'Honda'), ('Hyundai', 'Hyundai'), ('Kia', 'Kia'), ('Mazda', 'Mazda'), ('Mercedes', 'Mercedes'), ('Mitsubishi', 'Mitsubishi'), ('Nissan', 'Nissan'), ('Opel', 'Opel'), ('Peugeot', 'Peugeot'), ('Renault', 'Renault'), ('Seat', 'Seat'), ('Skoda', 'Skoda'), ('Subaru', 'Subaru'), ('Suzuki', 'Suzuki'), ('Toyota', 'Toyota'), ('Volkswagen', 'Volkswagen'), ('Volvo', 'Volvo')])
     model = StringField('Model', validators=[DataRequired(), Length(min=1, max=20)])
-    price = IntegerField('Price', validators=[DataRequired('This field has to be a number and is required.')])
+    price = IntegerField('Price', validators=[InputRequired()])
     year = IntegerField('Year', validators=[DataRequired('This field has to be a number and is required.'), NumberRange(min=1900, max=2020)])
-    ODO = IntegerField('ODO (km)', validators=[DataRequired('This field has to be a number with no spaces and is required.')])
+    ODO = IntegerField('ODO (km)', validators=[InputRequired()])
     category = SelectField('Category',validators=[DataRequired()], choices=[('', 'Select category'),('Hatchbag', 'Hatchbag'), ('Sedan', 'Sedan'), ('MUV/SUV', 'MUV/SUV'), ('Coupe', 'Coupe'), ('Convertible', 'Convertible'), ('Wagon', 'Wagon'), ('Van', 'Van'), ('Sport', 'Sport')])
     fuel = SelectField('Fuel type',validators=[DataRequired()], choices=[('', 'Select fuel type'),('Gas', 'Gas'), ('Diesel', 'Diesel'), ('Electric', 'Electric')])
     transmission = SelectField('Transmission type',validators=[DataRequired()], choices=[('', 'Select transmission type'),('Automatic', 'Automatic'), ('Manual', 'Manual')])
-    quantity = IntegerField('Quantity', validators=[DataRequired('This field has to be a number and is required.')])
+    quantity = IntegerField('Quantity', validators=[InputRequired(), NumberRange(min=0, max=999999999)])
     description = TextAreaField('Description')
     picture = FileField('Upload a picture (.png, .jpg)', validators=[FileAllowed(['png', 'jpg'])])
     submit = SubmitField('Post vehicle')
