@@ -90,21 +90,27 @@
             <!-- border around all the reviews-->
             <div class="border">
               <!-- start of individual review -->
-              {% for review in reviews %}
-              <div class="d-flex p-2 bd-highlight">
-                <div>
-                  {{review.ranking}}<br>User: {{review.author.username}}<br>Date: {{ review.date_posted.strftime('%d-%m-%Y') }}
+              {% if reviews %}
+                {% for review in reviews %}
+                <div class="d-flex p-2 bd-highlight">
+                  <div>
+                    {{review.ranking}}<br>User: {{review.author.username}}<br>Date: {{ review.date_posted.strftime('%d-%m-%Y') }}
+                  </div>
                 </div>
-              </div>
-      
-              <div class="mx-2">
-                <p>
-                  {{review.content}}
-                </p>
-                <hr>
-              </div>
-              <!-- end of single review -->
-              {% endfor %}
+        
+                <div class="mx-2">
+                  <p>
+                    {{review.content}}
+                  </p>
+                  <hr>
+                </div>
+                <!-- end of single review -->
+                {% endfor %}
+              {% else %}
+                <div class='m-1'>
+                  Nobody had reviewed this car yet.
+                </div>
+              {% endif %}
             </div>
             <!-- end of border around all the reviews -->
             

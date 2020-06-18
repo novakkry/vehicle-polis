@@ -245,6 +245,7 @@ def order_item(post_id):
         return redirect(url_for('order_details', order_id=order.id))
     elif request.method == 'GET':
         form.email.data = current_user.email
+        form.phone.data = current_user.contact_number
     return render_template('order_item.html', searchform=searchform, post=post, form=form)
 
 @current_app.route("/order_details/<int:order_id>", methods=['GET','POST'])
