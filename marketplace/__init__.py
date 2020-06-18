@@ -17,7 +17,7 @@ def create_app(config_class=Config):
     app = Flask(__name__)
     app.config.from_object(Config)
     # for heroku uncomment the next line and comment database config in config.py
-    # app.config.from_mapping(SQLALCHEMY_DATABASE_URI = os.environ['HEROKU_POSTGRESQL_COBALT_URL']) #maybe should be DATABASE_URL
+    app.config.from_mapping(SQLALCHEMY_DATABASE_URI = os.environ['HEROKU_POSTGRESQL_COBALT_URL']) #maybe should be DATABASE_URL
 
     with app.app_context():
         db.init_app(app)
