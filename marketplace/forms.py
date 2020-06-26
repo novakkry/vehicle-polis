@@ -35,7 +35,7 @@ class PostForm(FlaskForm):
     title = StringField('Title of your ad', validators=[DataRequired(), Length(min=3, max=40)])
     make = SelectField('Make',validators=[DataRequired()], choices=[('', 'Select car make'),('Alfa Romeo', 'Alfa Romeo'), ('Audi', 'Audi'), ('BMW', 'BMW'), ('Chevrolete', 'Chevrolet'), ('Citroen', 'Citroen'), ('Fiat', 'Fiat'), ('Ford', 'Ford'), ('Honda', 'Honda'), ('Hyundai', 'Hyundai'), ('Kia', 'Kia'), ('Mazda', 'Mazda'), ('Mercedes', 'Mercedes'), ('Mitsubishi', 'Mitsubishi'), ('Nissan', 'Nissan'), ('Opel', 'Opel'), ('Peugeot', 'Peugeot'), ('Renault', 'Renault'), ('Seat', 'Seat'), ('Skoda', 'Skoda'), ('Subaru', 'Subaru'), ('Suzuki', 'Suzuki'), ('Toyota', 'Toyota'), ('Volkswagen', 'Volkswagen'), ('Volvo', 'Volvo')])
     model = StringField('Model', validators=[DataRequired(), Length(min=1, max=20)])
-    price = IntegerField('Price', validators=[InputRequired()])
+    price = IntegerField('Price', validators=[InputRequired(), NumberRange(min=0)])
     year = IntegerField('Year', validators=[DataRequired('This field has to be a number and is required.'), NumberRange(min=1900, max=2020)])
     ODO = IntegerField('ODO (km)', validators=[InputRequired()])
     category = SelectField('Category',validators=[DataRequired()], choices=[('', 'Select category'),('Hatchbag', 'Hatchbag'), ('Sedan', 'Sedan'), ('MUV/SUV', 'MUV/SUV'), ('Coupe', 'Coupe'), ('Convertible', 'Convertible'), ('Wagon', 'Wagon'), ('Van', 'Van'), ('Sport', 'Sport')])
